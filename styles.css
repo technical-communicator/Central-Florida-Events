@@ -1485,6 +1485,12 @@ body {
     }
 }
 
+@media (max-width: 968px) {
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
     :root {
         --content-margin: 1.5rem;
@@ -1505,6 +1511,32 @@ body {
 
     .checkbox-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Improved widget sizing for personality questionnaire */
+    .choice-card .card-content {
+        padding: 1.75rem 1.25rem;
+    }
+
+    .choice-card.small .card-content {
+        padding: 1.25rem 0.875rem;
+    }
+
+    .choice-icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .choice-card.small .choice-icon {
+        font-size: 1.75rem;
+    }
+
+    .choice-card h3 {
+        font-size: 1.125rem;
+    }
+
+    .choice-card p {
+        font-size: 0.8125rem;
     }
 
     .header-controls {
@@ -1563,6 +1595,52 @@ body {
     .modal-content {
         margin: 1rem;
     }
+
+    /* Footer responsive */
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .footer-section {
+        text-align: center;
+    }
+
+    .footer-links a:hover {
+        transform: none;
+    }
+
+    /* Back to top button mobile adjustment */
+    .back-to-top {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 48px;
+        height: 48px;
+    }
+
+    .back-to-top .arrow-up {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Further optimize widget sizing for small screens */
+    .checkbox-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .checkbox-card .card-content {
+        padding: 1.25rem 1rem;
+    }
+
+    .onboarding-step h2 {
+        font-size: 1.5rem;
+    }
+
+    .step-description {
+        font-size: 1rem;
+    }
 }
 
 /* Loading Animation */
@@ -1580,6 +1658,135 @@ body {
     to {
         transform: rotate(360deg);
     }
+}
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 56px;
+    height: 56px;
+    background: var(--bg-gradient-1);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(100px);
+    transition: all var(--transition-base);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-glow);
+}
+
+.back-to-top:active {
+    transform: translateY(-2px);
+}
+
+.back-to-top .arrow-up {
+    font-size: 1.75rem;
+    font-weight: bold;
+    line-height: 1;
+}
+
+/* Footer Styles */
+.site-footer {
+    background: linear-gradient(180deg, #ffffff 0%, #faf5ff 100%);
+    border-top: 2px solid var(--border-color);
+    margin-top: 4rem;
+    padding: 3rem 0 2rem;
+}
+
+.footer-content {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 0 var(--content-margin);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h4 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: var(--bg-gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+}
+
+.footer-section h5 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.footer-section p {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: all var(--transition-fast);
+    display: inline-block;
+}
+
+.footer-links a:hover {
+    color: var(--primary-color);
+    transform: translateX(4px);
+}
+
+.footer-bottom {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 2rem var(--content-margin) 0;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.footer-bottom p {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.footer-compliance {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 0.75rem;
 }
 
 /* Utility Classes */
