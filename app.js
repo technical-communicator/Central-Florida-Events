@@ -47,12 +47,17 @@ function saveStateToLocalStorage() {
 function initializeApp() {
     setupEventListeners();
 
+    // Always show explore screen by default (hero page)
+    showScreen('explore');
+    displayEvents();
+
     if (AppState.userProfile) {
         updateProfileDisplay();
-        showScreen('explore');
-        displayEvents();
-    } else {
-        showScreen('onboarding');
+        // Hide the hero quiz CTA if user has completed the quiz
+        const heroQuizCta = document.getElementById('heroQuizCta');
+        if (heroQuizCta) {
+            heroQuizCta.classList.add('hidden');
+        }
     }
 }
 
@@ -132,6 +137,18 @@ function setupEventListeners() {
     document.querySelectorAll('input[name="vibes"]').forEach(input => {
         input.addEventListener('change', validateCurrentStep);
     });
+
+    // Hero quiz CTA button
+    const heroQuizCta = document.getElementById('heroQuizCta');
+    if (heroQuizCta) {
+        heroQuizCta.addEventListener('click', () => {
+            AppState.userProfile = null;
+            AppState.currentStep = 1;
+            saveStateToLocalStorage();
+            showScreen('onboarding');
+            updateOnboardingStep();
+        });
+    }
 }
 
 // Onboarding Flow Functions
@@ -259,6 +276,12 @@ function completeOnboarding() {
     updateProfileDisplay();
     showScreen('explore');
     displayEvents();
+
+    // Hide the hero quiz CTA button after completing the quiz
+    const heroQuizCta = document.getElementById('heroQuizCta');
+    if (heroQuizCta) {
+        heroQuizCta.classList.add('hidden');
+    }
 }
 
 function updateProfileDisplay() {
@@ -1004,15 +1027,10 @@ function displayRecommendations(recommendations, sentiment) {
         return;
     }
 
-    const sentimentEmoji = sentiment.sentiment === 'positive' ? '😊' : sentiment.sentiment === 'negative' ? '😔' : '😐';
-    const sentimentClass = sentiment.sentiment;
-
     container.innerHTML = `
         <div class="recommendations-header">
-            <h3>Based on your review... ${sentimentEmoji}</h3>
-            <span class="sentiment-badge ${sentimentClass}">
-                ${sentimentEmoji} ${sentiment.sentiment.charAt(0).toUpperCase() + sentiment.sentiment.slice(1)} Sentiment
-            </span>
+            <h3>You might also enjoy these events...</h3>
+            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.5rem;">Based on your feedback, here are some personalized recommendations just for you.</p>
         </div>
         ${recommendations.map(rec => `
             <div class="recommendation-card">
