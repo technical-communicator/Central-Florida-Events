@@ -501,8 +501,7 @@ body {
 .hero-quiz-cta {
     position: absolute;
     bottom: -3rem;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 2rem;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -519,7 +518,7 @@ body {
 }
 
 .hero-quiz-cta:hover {
-    transform: translateX(-50%) translateY(-8px);
+    transform: translateY(-8px);
     box-shadow: var(--shadow-glow);
 }
 
@@ -1648,7 +1647,7 @@ body {
         gap: 0.75rem;
         border-radius: 16px;
         bottom: 1.5rem;
-        left: 1.5rem;
+        right: 1.5rem;
     }
 
     .hero-quiz-cta .cta-icon {
