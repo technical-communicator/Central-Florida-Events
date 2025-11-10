@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central Florida Events - Personality-Based Recommendations</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1>CFEvents</h1>
+            <p class="tagline">Your Perfect Event Match</p>
+        </div>
+        <nav class="sidebar-nav">
+            <button class="nav-btn active" data-tab="explore">
+                <span class="icon">🔍</span>
+                <span>Explore</span>
+            </button>
+            <button class="nav-btn" data-tab="saved">
+                <span class="icon">❤️</span>
+                <span>Saved</span>
+            </button>
+            <button class="nav-btn" data-tab="reviews">
+                <span class="icon">⭐</span>
+                <span>My Reviews</span>
+            </button>
+        </nav>
+        <div class="sidebar-profile">
+            <div class="profile-info" id="profileInfo">
+                <button class="btn-profile" id="startOnboarding">Get Started</button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Onboarding Flow -->
+        <div id="onboardingScreen" class="screen active">
+            <div class="onboarding-container">
+                <div class="onboarding-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p class="progress-text"><span id="currentStep">1</span> of 8</p>
+                </div>
+
+                <!-- Step 1: Welcome -->
+                <div class="onboarding-step active" data-step="1">
+                    <h2>Welcome to Central Florida Events!</h2>
+                    <p class="step-description">Let's find events that match your unique personality. This quick assessment will help us recommend the perfect experiences for you.</p>
+                    <div class="welcome-features">
+                        <div class="feature">
+                            <span class="feature-icon">🎯</span>
+                            <h3>Personalized Matches</h3>
+                            <p>Events tailored to your personality type</p>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">💡</span>
+                            <h3>Smart Recommendations</h3>
+                            <p>AI-powered suggestions based on your preferences</p>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">📊</span>
+                            <h3>Review Intelligence</h3>
+                            <p>Get better suggestions from your feedback</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Energy Source (E/I) -->
+                <div class="onboarding-step" data-step="2">
+                    <h2>Where do you get your energy?</h2>
+                    <p class="step-description">Choose the option that best describes you in social situations.</p>
+                    <div class="choice-group">
+                        <label class="choice-card">
+                            <input type="radio" name="energy" value="E">
+                            <div class="card-content">
+                                <span class="choice-icon">👥</span>
+                                <h3>Extraverted</h3>
+                                <p>I gain energy from being around people. Large social events excite me and I love meeting new people.</p>
+                            </div>
+                        </label>
+                        <label class="choice-card">
+                            <input type="radio" name="energy" value="I">
+                            <div class="card-content">
+                                <span class="choice-icon">🧘</span>
+                                <h3>Introverted</h3>
+                                <p>I recharge through quiet time alone or with close friends. I prefer smaller, more intimate gatherings.</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Step 3: Information Processing (S/N) -->
+                <div class="onboarding-step" data-step="3">
+                    <h2>How do you take in information?</h2>
+                    <p class="step-description">Think about how you prefer to experience and learn new things.</p>
+                    <div class="choice-group">
+                        <label class="choice-card">
+                            <input type="radio" name="sensing" value="S">
+                            <div class="card-content">
+                                <span class="choice-icon">👁️</span>
+                                <h3>Sensing</h3>
+                                <p>I focus on concrete facts and details. I enjoy hands-on, practical experiences with clear outcomes.</p>
+                            </div>
+                        </label>
+                        <label class="choice-card">
+                            <input type="radio" name="sensing" value="N">
+                            <div class="card-content">
+                                <span class="choice-icon">🌟</span>
+                                <h3>Intuitive</h3>
+                                <p>I think about patterns and possibilities. I'm drawn to abstract ideas, creativity, and innovative concepts.</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Step 4: Decision Making (T/F) -->
+                <div class="onboarding-step" data-step="4">
+                    <h2>How do you make decisions?</h2>
+                    <p class="step-description">Consider what factors are most important when choosing activities.</p>
+                    <div class="choice-group">
+                        <label class="choice-card">
+                            <input type="radio" name="thinking" value="T">
+                            <div class="card-content">
+                                <span class="choice-icon">🧠</span>
+                                <h3>Thinking</h3>
+                                <p>I value logic and objective analysis. I enjoy competitive events and intellectual challenges.</p>
+                            </div>
+                        </label>
+                        <label class="choice-card">
+                            <input type="radio" name="thinking" value="F">
+                            <div class="card-content">
+                                <span class="choice-icon">❤️</span>
+                                <h3>Feeling</h3>
+                                <p>I prioritize harmony and personal values. I prefer events that foster connection and emotional experiences.</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Step 5: Lifestyle Approach (J/P) -->
+                <div class="onboarding-step" data-step="5">
+                    <h2>How do you approach life?</h2>
+                    <p class="step-description">Think about your planning style and how you like to structure your time.</p>
+                    <div class="choice-group">
+                        <label class="choice-card">
+                            <input type="radio" name="judging" value="J">
+                            <div class="card-content">
+                                <span class="choice-icon">📋</span>
+                                <h3>Judging</h3>
+                                <p>I like structure and planning. I prefer organized events with clear schedules and predictable formats.</p>
+                            </div>
+                        </label>
+                        <label class="choice-card">
+                            <input type="radio" name="judging" value="P">
+                            <div class="card-content">
+                                <span class="choice-icon">🎲</span>
+                                <h3>Perceiving</h3>
+                                <p>I value flexibility and spontaneity. I enjoy events that allow for improvisation and new discoveries.</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Step 6: Event Vibes -->
+                <div class="onboarding-step" data-step="6">
+                    <h2>What vibes appeal to you?</h2>
+                    <p class="step-description">Select all the event atmospheres that sound exciting (choose at least 3).</p>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="vibes" value="energetic">
+                            <div class="card-content">
+                                <span class="choice-icon">⚡</span>
+                                <h3>Energetic</h3>
+                            </div>
+                        </label>
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="vibes" value="relaxed">
+                            <div class="card-content">
+                                <span class="choice-icon">🌊</span>
+                                <h3>Relaxed</h3>
+                            </div>
+                        </label>
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="vibes" value="creative">
+                            <div class="card-content">
+                                <span class="choice-icon">🎨</span>
+                                <h3>Creative</h3>
+                            </div>
+                        </label>
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="vibes" value="adventurous">
+                            <div class="card-content">
+                                <span class="choice-icon">🏔️</span>
+                                <h3>Adventurous</h3>
+                            </div>
+                        </label>
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="vibes" value="cultural">
+                            <div class="card-content">
+                                <span class="choice-icon">🎭</span>
+                                <h3>Cultural</h3>
+                            </div>
+                        </label>
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="vibes" value="social">
+                            <div class="card-content">
+                                <span class="choice-icon">🎉</span>
+                                <h3>Social</h3>
+                            </div>
+                        </label>
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="vibes" value="educational">
+                            <div class="card-content">
+                                <span class="choice-icon">📚</span>
+                                <h3>Educational</h3>
+                            </div>
+                        </label>
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="vibes" value="competitive">
+                            <div class="card-content">
+                                <span class="choice-icon">🏆</span>
+                                <h3>Competitive</h3>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Step 7: Budget -->
+                <div class="onboarding-step" data-step="7">
+                    <h2>What's your typical budget per event?</h2>
+                    <p class="step-description">This helps us recommend events within your comfort zone.</p>
+                    <div class="choice-group">
+                        <label class="choice-card">
+                            <input type="radio" name="budget" value="free">
+                            <div class="card-content">
+                                <span class="choice-icon">🆓</span>
+                                <h3>Free Events</h3>
+                                <p>$0 - I love free community events</p>
+                            </div>
+                        </label>
+                        <label class="choice-card">
+                            <input type="radio" name="budget" value="budget">
+                            <div class="card-content">
+                                <span class="choice-icon">💵</span>
+                                <h3>Budget-Friendly</h3>
+                                <p>$1-20 - Affordable experiences</p>
+                            </div>
+                        </label>
+                        <label class="choice-card">
+                            <input type="radio" name="budget" value="moderate">
+                            <div class="card-content">
+                                <span class="choice-icon">💳</span>
+                                <h3>Moderate</h3>
+                                <p>$20-50 - Worth the experience</p>
+                            </div>
+                        </label>
+                        <label class="choice-card">
+                            <input type="radio" name="budget" value="premium">
+                            <div class="card-content">
+                                <span class="choice-icon">💎</span>
+                                <h3>Premium</h3>
+                                <p>$50+ - Special occasions welcome</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Step 8: Group Size & Final Preferences -->
+                <div class="onboarding-step" data-step="8">
+                    <h2>Final preferences</h2>
+                    <p class="step-description">Just a couple more details to personalize your experience.</p>
+                    <div class="form-group">
+                        <label>Preferred group size:</label>
+                        <div class="choice-group">
+                            <label class="choice-card small">
+                                <input type="radio" name="groupSize" value="solo">
+                                <div class="card-content">
+                                    <span class="choice-icon">👤</span>
+                                    <h3>Solo</h3>
+                                </div>
+                            </label>
+                            <label class="choice-card small">
+                                <input type="radio" name="groupSize" value="couple">
+                                <div class="card-content">
+                                    <span class="choice-icon">👫</span>
+                                    <h3>Couple</h3>
+                                </div>
+                            </label>
+                            <label class="choice-card small">
+                                <input type="radio" name="groupSize" value="small">
+                                <div class="card-content">
+                                    <span class="choice-icon">👥</span>
+                                    <h3>Small Group</h3>
+                                </div>
+                            </label>
+                            <label class="choice-card small">
+                                <input type="radio" name="groupSize" value="large">
+                                <div class="card-content">
+                                    <span class="choice-icon">👨‍👩‍👧‍👦</span>
+                                    <h3>Large Group</h3>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Preferred time:</label>
+                        <div class="choice-group">
+                            <label class="choice-card small">
+                                <input type="radio" name="timePreference" value="morning">
+                                <div class="card-content">
+                                    <span class="choice-icon">🌅</span>
+                                    <h3>Morning</h3>
+                                </div>
+                            </label>
+                            <label class="choice-card small">
+                                <input type="radio" name="timePreference" value="afternoon">
+                                <div class="card-content">
+                                    <span class="choice-icon">☀️</span>
+                                    <h3>Afternoon</h3>
+                                </div>
+                            </label>
+                            <label class="choice-card small">
+                                <input type="radio" name="timePreference" value="evening">
+                                <div class="card-content">
+                                    <span class="choice-icon">🌆</span>
+                                    <h3>Evening</h3>
+                                </div>
+                            </label>
+                            <label class="choice-card small">
+                                <input type="radio" name="timePreference" value="night">
+                                <div class="card-content">
+                                    <span class="choice-icon">🌙</span>
+                                    <h3>Night</h3>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="onboarding-nav">
+                    <button class="btn btn-secondary" id="prevBtn" style="visibility: hidden;">Previous</button>
+                    <button class="btn btn-primary" id="nextBtn">Next</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Explore Screen -->
+        <div id="exploreScreen" class="screen">
+            <div class="content-header">
+                <h2>Discover Events</h2>
+                <div class="header-controls">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search events...">
+                        <span class="search-icon">🔍</span>
+                    </div>
+                    <select id="filterCategory" class="filter-select">
+                        <option value="all">All Categories</option>
+                        <option value="music">Music</option>
+                        <option value="food">Food & Drink</option>
+                        <option value="sports">Sports</option>
+                        <option value="arts">Arts & Culture</option>
+                        <option value="outdoor">Outdoor</option>
+                        <option value="education">Education</option>
+                        <option value="community">Community</option>
+                    </select>
+                    <select id="sortBy" class="filter-select">
+                        <option value="match">Best Match</option>
+                        <option value="date">Date</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                    </select>
+                </div>
+            </div>
+            <div class="events-grid" id="eventsGrid"></div>
+        </div>
+
+        <!-- Saved Events Screen -->
+        <div id="savedScreen" class="screen">
+            <div class="content-header">
+                <h2>Saved Events</h2>
+            </div>
+            <div class="events-grid" id="savedEventsGrid"></div>
+        </div>
+
+        <!-- Reviews Screen -->
+        <div id="reviewsScreen" class="screen">
+            <div class="content-header">
+                <h2>My Reviews</h2>
+            </div>
+            <div class="reviews-container" id="reviewsContainer"></div>
+        </div>
+
+        <!-- Event Detail Modal -->
+        <div id="eventModal" class="modal">
+            <div class="modal-content">
+                <button class="modal-close" id="closeModal">&times;</button>
+                <div id="modalBody"></div>
+            </div>
+        </div>
+
+        <!-- Review Modal -->
+        <div id="reviewModal" class="modal">
+            <div class="modal-content">
+                <button class="modal-close" id="closeReviewModal">&times;</button>
+                <div class="review-form">
+                    <h2>Share Your Experience</h2>
+                    <div class="rating-input">
+                        <label>Rating:</label>
+                        <div class="star-rating" id="starRating">
+                            <span class="star" data-rating="1">☆</span>
+                            <span class="star" data-rating="2">☆</span>
+                            <span class="star" data-rating="3">☆</span>
+                            <span class="star" data-rating="4">☆</span>
+                            <span class="star" data-rating="5">☆</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Your Review:</label>
+                        <textarea id="reviewText" rows="6" placeholder="Tell us about your experience..."></textarea>
+                    </div>
+                    <button class="btn btn-primary" id="submitReview">Submit Review</button>
+                </div>
+                <div id="recommendationsContainer"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="events-data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
