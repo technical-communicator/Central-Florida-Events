@@ -7,7 +7,7 @@ const EVENTS_DATA = [
         description: "Experience world-class classical music under the open sky at Lake Eola. This outdoor concert features beloved symphonic masterpieces.",
         location: "Lake Eola Park, Orlando",
         date: "2025-11-15",
-        time: "evening",
+        time: "7:00 PM",
         price: 45,
         priceCategory: "moderate",
         capacity: "large",
@@ -18,7 +18,11 @@ const EVENTS_DATA = [
         interactivity: "low",
         venue: "outdoor",
         duration: "3 hours",
-        tags: ["music", "classical", "outdoor", "romantic", "peaceful"]
+        tags: ["music", "classical", "outdoor", "romantic", "peaceful"],
+        externalLink: "https://orlandophil.org/",
+        source: "Orlando Philharmonic Orchestra official website",
+        locationImage: "https://images.unsplash.com/photo-1580655653885-65763b2597d0?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Lake Eola Park, Orlando"
     },
     {
         id: 2,
@@ -27,7 +31,7 @@ const EVENTS_DATA = [
         description: "Florida's premier electronic music festival featuring top international DJs, immersive art installations, and carnival rides.",
         location: "Tinker Field, Orlando",
         date: "2025-11-22",
-        time: "night",
+        time: "7:00 PM - 7:00 AM",
         price: 189,
         priceCategory: "premium",
         capacity: "large",
@@ -38,7 +42,11 @@ const EVENTS_DATA = [
         interactivity: "high",
         venue: "outdoor",
         duration: "12 hours",
-        tags: ["music", "edm", "festival", "dance", "nightlife"]
+        tags: ["music", "edm", "festival", "dance", "nightlife"],
+        externalLink: "https://orlando.electricdaisycarnival.com/",
+        source: "EDC Orlando official website - Insomniac Events",
+        locationImage: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Music Festival"
     },
     {
         id: 3,
@@ -47,7 +55,7 @@ const EVENTS_DATA = [
         description: "Browse local produce, artisan goods, and handcrafted items while enjoying live music in the heart of charming Winter Park.",
         location: "Winter Park Train Station",
         date: "2025-11-12",
-        time: "morning",
+        time: "7:00 AM",
         price: 0,
         priceCategory: "free",
         capacity: "large",
@@ -58,7 +66,11 @@ const EVENTS_DATA = [
         interactivity: "medium",
         venue: "outdoor",
         duration: "4 hours",
-        tags: ["farmers-market", "local", "food", "community", "family-friendly"]
+        tags: ["farmers-market", "local", "food", "community", "family-friendly"],
+        externalLink: "https://cityofwinterpark.org/departments/parks-recreation/farmers-market/",
+        source: "City of Winter Park official website",
+        locationImage: "https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Farmers Market"
     },
     {
         id: 4,
@@ -67,7 +79,7 @@ const EVENTS_DATA = [
         description: "Work together to solve puzzles and escape within 60 minutes. Can you crack the vault and steal the diamond?",
         location: "The Escape Effect, Downtown Orlando",
         date: "2025-11-16",
-        time: "afternoon",
+        time: "2:00 PM",
         price: 32,
         priceCategory: "moderate",
         capacity: "small",
@@ -78,7 +90,11 @@ const EVENTS_DATA = [
         interactivity: "high",
         venue: "indoor",
         duration: "1 hour",
-        tags: ["puzzle", "teamwork", "adventure", "challenge", "interactive"]
+        tags: ["puzzle", "teamwork", "adventure", "challenge", "interactive"],
+        externalLink: "https://www.theescapeeffect.com/",
+        source: "The Escape Effect official website",
+        locationImage: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Escape Room"
     },
     {
         id: 5,
@@ -87,7 +103,7 @@ const EVENTS_DATA = [
         description: "Learn practical meditation techniques and mindfulness practices to reduce stress and find inner peace.",
         location: "Yoga Sanctuary, Altamonte Springs",
         date: "2025-11-13",
-        time: "morning",
+        time: "9:00 AM",
         price: 15,
         priceCategory: "budget",
         capacity: "small",
@@ -98,7 +114,11 @@ const EVENTS_DATA = [
         interactivity: "low",
         venue: "indoor",
         duration: "2 hours",
-        tags: ["wellness", "meditation", "mindfulness", "health", "peaceful"]
+        tags: ["wellness", "meditation", "mindfulness", "health", "peaceful"],
+        externalLink: "https://www.visitorlando.com/things-to-do/wellness",
+        source: "Visit Orlando wellness calendar",
+        locationImage: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Yoga Studio"
     },
     {
         id: 6,
@@ -107,7 +127,7 @@ const EVENTS_DATA = [
         description: "Sample cuisine from 20+ food trucks offering everything from tacos to artisan ice cream. Live music and family activities.",
         location: "Baldwin Park, Orlando",
         date: "2025-11-17",
-        time: "evening",
+        time: "5:00 PM",
         price: 0,
         priceCategory: "free",
         capacity: "large",
@@ -118,7 +138,11 @@ const EVENTS_DATA = [
         interactivity: "medium",
         venue: "outdoor",
         duration: "4 hours",
-        tags: ["food", "family-friendly", "music", "community", "casual"]
+        tags: ["food", "family-friendly", "music", "community", "casual"],
+        externalLink: "https://www.baldwinparkfl.com/events",
+        source: "Baldwin Park Community events calendar",
+        locationImage: "https://images.unsplash.com/photo-1565123409695-7b5ef63a2efb?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Food Trucks"
     },
     {
         id: 7,
@@ -127,7 +151,7 @@ const EVENTS_DATA = [
         description: "Catch the rivalry game as the Magic take on the Heat in an electrifying NBA matchup at the Kia Center.",
         location: "Kia Center, Orlando",
         date: "2025-11-19",
-        time: "night",
+        time: "7:30 PM",
         price: 85,
         priceCategory: "premium",
         capacity: "large",
@@ -138,7 +162,11 @@ const EVENTS_DATA = [
         interactivity: "low",
         venue: "indoor",
         duration: "3 hours",
-        tags: ["basketball", "sports", "nba", "entertainment", "exciting"]
+        tags: ["basketball", "sports", "nba", "entertainment", "exciting"],
+        externalLink: "https://www.nba.com/magic/",
+        source: "Orlando Magic official website",
+        locationImage: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Basketball Arena"
     },
     {
         id: 8,
@@ -147,7 +175,7 @@ const EVENTS_DATA = [
         description: "Exclusive evening gallery opening featuring emerging local artists. Wine, light bites, and artist meet-and-greet included.",
         location: "CityArts Factory, Orlando",
         date: "2025-11-14",
-        time: "evening",
+        time: "7:00 PM",
         price: 25,
         priceCategory: "moderate",
         capacity: "medium",
@@ -158,7 +186,11 @@ const EVENTS_DATA = [
         interactivity: "medium",
         venue: "indoor",
         duration: "3 hours",
-        tags: ["art", "gallery", "wine", "networking", "culture"]
+        tags: ["art", "gallery", "wine", "networking", "culture"],
+        externalLink: "https://www.cityartsfactory.com/",
+        source: "CityArts Factory official website",
+        locationImage: "https://images.unsplash.com/photo-1531243269054-5ebf6f34081e?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Art Gallery"
     },
     {
         id: 9,
@@ -167,7 +199,7 @@ const EVENTS_DATA = [
         description: "Paddle through crystal-clear springs and natural wildlife habitats. Guided tour includes equipment and naturalist insights.",
         location: "Wekiwa Springs State Park",
         date: "2025-11-18",
-        time: "morning",
+        time: "8:00 AM",
         price: 55,
         priceCategory: "moderate",
         capacity: "small",
@@ -178,7 +210,11 @@ const EVENTS_DATA = [
         interactivity: "high",
         venue: "outdoor",
         duration: "3 hours",
-        tags: ["kayaking", "nature", "wildlife", "outdoor", "adventure"]
+        tags: ["kayaking", "nature", "wildlife", "outdoor", "adventure"],
+        externalLink: "https://www.floridastateparks.org/parks-and-trails/wekiwa-springs-state-park",
+        source: "Florida State Parks official website",
+        locationImage: "https://images.unsplash.com/photo-1502933691298-84fc14542831?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Kayaking"
     },
     {
         id: 10,
@@ -187,7 +223,7 @@ const EVENTS_DATA = [
         description: "Laugh out loud with a lineup of hilarious comedians at Orlando's premier comedy club. Full bar and food menu available.",
         location: "SAK Comedy Lab, Downtown Orlando",
         date: "2025-11-20",
-        time: "night",
+        time: "8:00 PM",
         price: 18,
         priceCategory: "budget",
         capacity: "medium",
@@ -198,7 +234,11 @@ const EVENTS_DATA = [
         interactivity: "low",
         venue: "indoor",
         duration: "2 hours",
-        tags: ["comedy", "entertainment", "nightlife", "laughter", "date-night"]
+        tags: ["comedy", "entertainment", "nightlife", "laughter", "date-night"],
+        externalLink: "https://www.sak.com/",
+        source: "SAK Comedy Lab official website",
+        locationImage: "https://images.unsplash.com/photo-1585699324551-f6c309eedeca?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Comedy Club"
     },
     {
         id: 11,
@@ -207,7 +247,7 @@ const EVENTS_DATA = [
         description: "Shop curated vintage clothing, records, home decor, and antiques from local collectors and vendors.",
         location: "The Venue, Sanford",
         date: "2025-11-23",
-        time: "afternoon",
+        time: "12:00 PM",
         price: 5,
         priceCategory: "budget",
         capacity: "medium",
@@ -218,7 +258,11 @@ const EVENTS_DATA = [
         interactivity: "medium",
         venue: "indoor",
         duration: "4 hours",
-        tags: ["shopping", "vintage", "antiques", "local", "unique"]
+        tags: ["shopping", "vintage", "antiques", "local", "unique"],
+        externalLink: "https://www.visitorlando.com/things-to-do/shopping",
+        source: "Visit Orlando events calendar",
+        locationImage: "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Vintage Market"
     },
     {
         id: 12,
@@ -227,7 +271,7 @@ const EVENTS_DATA = [
         description: "Test your knowledge across pop culture, history, science, and sports. Cash prizes for winning teams!",
         location: "Sportstown Billiards, Orlando",
         date: "2025-11-21",
-        time: "night",
+        time: "8:00 PM",
         price: 0,
         priceCategory: "free",
         capacity: "large",
@@ -238,7 +282,11 @@ const EVENTS_DATA = [
         interactivity: "high",
         venue: "indoor",
         duration: "2.5 hours",
-        tags: ["trivia", "competition", "knowledge", "team", "social"]
+        tags: ["trivia", "competition", "knowledge", "team", "social"],
+        externalLink: "https://www.sportstownorlando.com/",
+        source: "Sportstown Billiards events calendar",
+        locationImage: "https://images.unsplash.com/photo-1543342384-1f1350e27861?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Trivia Night"
     },
     {
         id: 13,
@@ -247,7 +295,7 @@ const EVENTS_DATA = [
         description: "Float peacefully over Central Florida landscapes at dawn. Includes champagne toast and breakfast after landing.",
         location: "Launch sites near Kissimmee",
         date: "2025-11-24",
-        time: "morning",
+        time: "6:00 AM",
         price: 225,
         priceCategory: "premium",
         capacity: "small",
@@ -258,7 +306,11 @@ const EVENTS_DATA = [
         interactivity: "low",
         venue: "outdoor",
         duration: "3 hours",
-        tags: ["hot-air-balloon", "romantic", "scenic", "unique", "peaceful"]
+        tags: ["hot-air-balloon", "romantic", "scenic", "unique", "peaceful"],
+        externalLink: "https://www.visitorlando.com/things-to-do/tours/hot-air-balloon-rides",
+        source: "Visit Orlando tours and experiences",
+        locationImage: "https://images.unsplash.com/photo-1498036882173-b41c28a8ba34?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Hot Air Balloon"
     },
     {
         id: 14,
@@ -267,7 +319,7 @@ const EVENTS_DATA = [
         description: "Fun run where participants get doused in colored powder at each kilometer. All proceeds benefit local children's hospital.",
         location: "Cranes Roost Park, Altamonte Springs",
         date: "2025-11-25",
-        time: "morning",
+        time: "8:00 AM",
         price: 35,
         priceCategory: "moderate",
         capacity: "large",
@@ -278,7 +330,11 @@ const EVENTS_DATA = [
         interactivity: "high",
         venue: "outdoor",
         duration: "2 hours",
-        tags: ["running", "fitness", "charity", "fun", "community"]
+        tags: ["running", "fitness", "charity", "fun", "community"],
+        externalLink: "https://www.altamonte.org/facilities/facility/details/Cranes-Roost-Park-61",
+        source: "City of Altamonte Springs parks website",
+        locationImage: "https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Color Run"
     },
     {
         id: 15,
@@ -287,7 +343,7 @@ const EVENTS_DATA = [
         description: "Learn to make authentic pasta from scratch, plus classic sauces and tiramisu. Enjoy your creations with wine pairings.",
         location: "Sur La Table, Winter Park Village",
         date: "2025-11-26",
-        time: "evening",
+        time: "6:00 PM",
         price: 89,
         priceCategory: "premium",
         capacity: "small",
@@ -298,7 +354,11 @@ const EVENTS_DATA = [
         interactivity: "high",
         venue: "indoor",
         duration: "3 hours",
-        tags: ["cooking", "food", "italian", "class", "wine"]
+        tags: ["cooking", "food", "italian", "class", "wine"],
+        externalLink: "https://www.surlatable.com/",
+        source: "Sur La Table official website",
+        locationImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Cooking Class"
     },
     {
         id: 16,
@@ -307,7 +367,7 @@ const EVENTS_DATA = [
         description: "Intimate evening of smooth jazz featuring local musicians. Full bar, relaxed atmosphere, and great acoustics.",
         location: "The Social, Downtown Orlando",
         date: "2025-11-27",
-        time: "night",
+        time: "8:00 PM",
         price: 15,
         priceCategory: "budget",
         capacity: "medium",
@@ -318,7 +378,11 @@ const EVENTS_DATA = [
         interactivity: "low",
         venue: "indoor",
         duration: "3 hours",
-        tags: ["jazz", "music", "nightlife", "intimate", "sophisticated"]
+        tags: ["jazz", "music", "nightlife", "intimate", "sophisticated"],
+        externalLink: "https://www.thesocial.org/",
+        source: "The Social official website",
+        locationImage: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Jazz Club"
     },
     {
         id: 17,
@@ -327,7 +391,7 @@ const EVENTS_DATA = [
         description: "Compete in cutting-edge VR games. All skill levels welcome. Top prizes and bragging rights await!",
         location: "Ctrl V Virtual Reality Arcade, Orlando",
         date: "2025-11-28",
-        time: "afternoon",
+        time: "3:00 PM",
         price: 40,
         priceCategory: "moderate",
         capacity: "medium",
@@ -338,7 +402,11 @@ const EVENTS_DATA = [
         interactivity: "high",
         venue: "indoor",
         duration: "2 hours",
-        tags: ["gaming", "vr", "technology", "competition", "modern"]
+        tags: ["gaming", "vr", "technology", "competition", "modern"],
+        externalLink: "https://www.ctrlv.com/",
+        source: "Ctrl V Virtual Reality Arcade official website",
+        locationImage: "https://images.unsplash.com/photo-1535223289827-42f1e9919769?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - VR Gaming"
     },
     {
         id: 18,
@@ -347,7 +415,7 @@ const EVENTS_DATA = [
         description: "Guided walking tour through themed gardens at golden hour. Learn about rare plants and sustainable gardening practices.",
         location: "Harry P. Leu Gardens, Orlando",
         date: "2025-11-29",
-        time: "evening",
+        time: "5:00 PM",
         price: 12,
         priceCategory: "budget",
         capacity: "small",
@@ -358,7 +426,11 @@ const EVENTS_DATA = [
         interactivity: "low",
         venue: "outdoor",
         duration: "1.5 hours",
-        tags: ["gardens", "nature", "peaceful", "educational", "photography"]
+        tags: ["gardens", "nature", "peaceful", "educational", "photography"],
+        externalLink: "https://www.leugardens.org/",
+        source: "Harry P. Leu Gardens official website",
+        locationImage: "https://images.unsplash.com/photo-1470058869958-2a77ade41c02?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Botanical Gardens"
     },
     {
         id: 19,
@@ -367,7 +439,7 @@ const EVENTS_DATA = [
         description: "Play from our library of 200+ board games while sampling local craft beers. Game experts available to teach.",
         location: "Cloak & Blaster, Orlando",
         date: "2025-11-30",
-        time: "evening",
+        time: "6:00 PM",
         price: 8,
         priceCategory: "budget",
         capacity: "medium",
@@ -378,7 +450,11 @@ const EVENTS_DATA = [
         interactivity: "high",
         venue: "indoor",
         duration: "3 hours",
-        tags: ["board-games", "beer", "social", "strategy", "casual"]
+        tags: ["board-games", "beer", "social", "strategy", "casual"],
+        externalLink: "https://www.cloakandblaster.com/",
+        source: "Cloak & Blaster official website",
+        locationImage: "https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Board Game Cafe"
     },
     {
         id: 20,
@@ -387,7 +463,7 @@ const EVENTS_DATA = [
         description: "Use professional telescopes to observe planets, nebulae, and distant galaxies. Astronomy experts provide commentary.",
         location: "Robinson Observatory, Lake Wales",
         date: "2025-12-01",
-        time: "night",
+        time: "8:00 PM",
         price: 10,
         priceCategory: "budget",
         capacity: "small",
@@ -398,7 +474,11 @@ const EVENTS_DATA = [
         interactivity: "medium",
         venue: "outdoor",
         duration: "2 hours",
-        tags: ["astronomy", "science", "stargazing", "educational", "unique"]
+        tags: ["astronomy", "science", "stargazing", "educational", "unique"],
+        externalLink: "https://www.polk.edu/directory-listing/robinson-observatory/",
+        source: "Polk State College Robinson Observatory",
+        locationImage: "https://images.unsplash.com/photo-1464802686167-b939a6910659?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Observatory"
     },
     {
         id: 21,
@@ -407,7 +487,7 @@ const EVENTS_DATA = [
         description: "Beginner lesson followed by open social dancing. No partner required - we rotate! All skill levels welcome.",
         location: "Orlando Salsa & Bachata, International Drive",
         date: "2025-12-02",
-        time: "evening",
+        time: "7:00 PM",
         price: 12,
         priceCategory: "budget",
         capacity: "large",
@@ -418,7 +498,11 @@ const EVENTS_DATA = [
         interactivity: "high",
         venue: "indoor",
         duration: "3 hours",
-        tags: ["dancing", "salsa", "social", "fitness", "latin"]
+        tags: ["dancing", "salsa", "social", "fitness", "latin"],
+        externalLink: "https://www.visitorlando.com/things-to-do/nightlife/dancing",
+        source: "Visit Orlando nightlife calendar",
+        locationImage: "https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Salsa Dancing"
     },
     {
         id: 22,
@@ -427,7 +511,7 @@ const EVENTS_DATA = [
         description: "Share your original poetry or simply listen to local spoken word artists. Supportive, creative community atmosphere.",
         location: "Stardust Coffee & Video, Orlando",
         date: "2025-12-03",
-        time: "night",
+        time: "8:00 PM",
         price: 0,
         priceCategory: "free",
         capacity: "small",
@@ -438,7 +522,11 @@ const EVENTS_DATA = [
         interactivity: "medium",
         venue: "indoor",
         duration: "2 hours",
-        tags: ["poetry", "open-mic", "art", "creative", "coffee"]
+        tags: ["poetry", "open-mic", "art", "creative", "coffee"],
+        externalLink: "https://www.stardustvideoandcoffee.com/",
+        source: "Stardust Coffee & Video official website",
+        locationImage: "https://images.unsplash.com/photo-1524850011238-e3d235c7d4c9?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Coffee Shop"
     },
     {
         id: 23,
@@ -447,7 +535,7 @@ const EVENTS_DATA = [
         description: "Guided ride through challenging forest trails. Bike rentals available. All fitness levels with multiple route options.",
         location: "Little Big Econ State Forest",
         date: "2025-12-04",
-        time: "morning",
+        time: "8:00 AM",
         price: 30,
         priceCategory: "moderate",
         capacity: "small",
@@ -458,7 +546,11 @@ const EVENTS_DATA = [
         interactivity: "high",
         venue: "outdoor",
         duration: "3 hours",
-        tags: ["biking", "outdoor", "fitness", "adventure", "nature"]
+        tags: ["biking", "outdoor", "fitness", "adventure", "nature"],
+        externalLink: "https://www.floridastateparks.org/parks-and-trails/little-big-econ-state-forest",
+        source: "Florida State Parks official website",
+        locationImage: "https://images.unsplash.com/photo-1544191696-102dbdaeeaa0?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Mountain Biking"
     },
     {
         id: 24,
@@ -467,7 +559,7 @@ const EVENTS_DATA = [
         description: "No experience needed! Follow along to create your own masterpiece while enjoying wine. All supplies included.",
         location: "Pinot's Palette, Winter Park",
         date: "2025-12-05",
-        time: "evening",
+        time: "7:00 PM",
         price: 45,
         priceCategory: "moderate",
         capacity: "medium",
@@ -478,7 +570,11 @@ const EVENTS_DATA = [
         interactivity: "high",
         venue: "indoor",
         duration: "2 hours",
-        tags: ["painting", "wine", "art", "creative", "social"]
+        tags: ["painting", "wine", "art", "creative", "social"],
+        externalLink: "https://www.pinotspalette.com/",
+        source: "Pinot's Palette official website",
+        locationImage: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Paint and Sip"
     },
     {
         id: 25,
@@ -487,7 +583,7 @@ const EVENTS_DATA = [
         description: "Watch innovative startups pitch their ideas to investors. Networking reception follows. Great for entrepreneurs!",
         location: "Canvs Coworking, Downtown Orlando",
         date: "2025-12-06",
-        time: "evening",
+        time: "6:00 PM",
         price: 0,
         priceCategory: "free",
         capacity: "medium",
@@ -498,7 +594,11 @@ const EVENTS_DATA = [
         interactivity: "medium",
         venue: "indoor",
         duration: "2.5 hours",
-        tags: ["tech", "startup", "business", "networking", "innovation"]
+        tags: ["tech", "startup", "business", "networking", "innovation"],
+        externalLink: "https://www.canvsorlando.com/",
+        source: "Canvs Coworking official website",
+        locationImage: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Startup Pitch"
     },
     {
         id: 26,
@@ -507,7 +607,7 @@ const EVENTS_DATA = [
         description: "Practice yoga on paddleboards under the stars. Magical experience combining fitness, nature, and mindfulness.",
         location: "Lake Baldwin, Orlando",
         date: "2025-12-07",
-        time: "night",
+        time: "8:00 PM",
         price: 40,
         priceCategory: "moderate",
         capacity: "small",
@@ -518,7 +618,11 @@ const EVENTS_DATA = [
         interactivity: "high",
         venue: "outdoor",
         duration: "1.5 hours",
-        tags: ["yoga", "paddleboard", "wellness", "unique", "peaceful"]
+        tags: ["yoga", "paddleboard", "wellness", "unique", "peaceful"],
+        externalLink: "https://www.visitorlando.com/things-to-do/wellness",
+        source: "Visit Orlando wellness experiences",
+        locationImage: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Paddleboard Yoga"
     },
     {
         id: 27,
@@ -527,7 +631,7 @@ const EVENTS_DATA = [
         description: "Taste global cuisines from 30+ vendors. Live cooking demos, eating contests, and cultural performances.",
         location: "Festival Park at Lake Nona",
         date: "2025-12-08",
-        time: "afternoon",
+        time: "12:00 PM",
         price: 0,
         priceCategory: "free",
         capacity: "large",
@@ -538,7 +642,11 @@ const EVENTS_DATA = [
         interactivity: "medium",
         venue: "outdoor",
         duration: "5 hours",
-        tags: ["food", "international", "festival", "family-friendly", "cultural"]
+        tags: ["food", "international", "festival", "family-friendly", "cultural"],
+        externalLink: "https://www.lakenona.com/events/",
+        source: "Lake Nona events calendar",
+        locationImage: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Food Festival"
     },
     {
         id: 28,
@@ -547,7 +655,7 @@ const EVENTS_DATA = [
         description: "Interactive murder mystery where you're part of the story. Four-course dinner included. Solve the crime!",
         location: "Sleuth's Mystery Dinner Shows, I-Drive",
         date: "2025-12-09",
-        time: "evening",
+        time: "7:00 PM",
         price: 65,
         priceCategory: "premium",
         capacity: "large",
@@ -558,7 +666,11 @@ const EVENTS_DATA = [
         interactivity: "high",
         venue: "indoor",
         duration: "3 hours",
-        tags: ["theater", "dinner", "mystery", "interactive", "entertainment"]
+        tags: ["theater", "dinner", "mystery", "interactive", "entertainment"],
+        externalLink: "https://www.sleuths.com/",
+        source: "Sleuth's Mystery Dinner Shows official website",
+        locationImage: "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Dinner Theater"
     },
     {
         id: 29,
@@ -567,7 +679,7 @@ const EVENTS_DATA = [
         description: "Guided photo walk through Orlando's historic architecture. Tips on composition and lighting. All camera types welcome.",
         location: "Downtown Orlando Historic District",
         date: "2025-12-10",
-        time: "morning",
+        time: "9:00 AM",
         price: 20,
         priceCategory: "budget",
         capacity: "small",
@@ -578,7 +690,11 @@ const EVENTS_DATA = [
         interactivity: "medium",
         venue: "outdoor",
         duration: "2 hours",
-        tags: ["photography", "art", "walking", "historic", "educational"]
+        tags: ["photography", "art", "walking", "historic", "educational"],
+        externalLink: "https://www.orlando.gov/Our-Government/Departments-Offices/Families-Parks-Recreation/Plan-Fun/Walking-Trails",
+        source: "City of Orlando walking tours",
+        locationImage: "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Downtown Orlando"
     },
     {
         id: 30,
@@ -587,7 +703,7 @@ const EVENTS_DATA = [
         description: "Learn improv basics and have fun with games and exercises. Great for building confidence and meeting people!",
         location: "SAK Comedy Lab, Downtown Orlando",
         date: "2025-12-11",
-        time: "evening",
+        time: "7:00 PM",
         price: 35,
         priceCategory: "moderate",
         capacity: "small",
@@ -598,7 +714,11 @@ const EVENTS_DATA = [
         interactivity: "high",
         venue: "indoor",
         duration: "2 hours",
-        tags: ["improv", "comedy", "workshop", "social", "creativity"]
+        tags: ["improv", "comedy", "workshop", "social", "creativity"],
+        externalLink: "https://www.sak.com/",
+        source: "SAK Comedy Lab official website",
+        locationImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Comedy Theater"
     },
     {
         id: 31,
@@ -607,7 +727,7 @@ const EVENTS_DATA = [
         description: "Experience K-Pop and EDM DJs, live dance battles, Asian bites and local food vendors. LED photo zones and festive lights create an exciting atmosphere.",
         location: "Wall Street Plaza, Downtown Orlando",
         date: "2025-11-07",
-        time: "afternoon",
+        time: "4:00 PM",
         price: 0,
         priceCategory: "free",
         capacity: "large",
@@ -618,7 +738,11 @@ const EVENTS_DATA = [
         interactivity: "medium",
         venue: "outdoor",
         duration: "7 hours",
-        tags: ["food", "asian", "cultural", "music", "night-market"]
+        tags: ["food", "asian", "cultural", "music", "night-market"],
+        externalLink: "https://www.wallstplaza.net/events",
+        source: "Wall Street Plaza events calendar",
+        locationImage: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Night Market"
     },
     {
         id: 32,
@@ -627,7 +751,7 @@ const EVENTS_DATA = [
         description: "Free unticketed performance featuring the renowned Army Field Band from Washington, D.C. World-class military music excellence.",
         location: "Orlando",
         date: "2025-11-10",
-        time: "evening",
+        time: "7:00 PM",
         price: 0,
         priceCategory: "free",
         capacity: "large",
@@ -638,7 +762,11 @@ const EVENTS_DATA = [
         interactivity: "low",
         venue: "outdoor",
         duration: "2 hours",
-        tags: ["music", "military", "patriotic", "free", "concert"]
+        tags: ["music", "military", "patriotic", "free", "concert"],
+        externalLink: "https://www.army.mil/fieldband/",
+        source: "United States Army Field Band official website",
+        locationImage: "https://images.unsplash.com/photo-1511735111819-9a3f7709049c?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Concert Band"
     },
     {
         id: 33,
@@ -647,7 +775,7 @@ const EVENTS_DATA = [
         description: "Enjoy smooth jazz tunes and delicious food truck offerings at Orlando's iconic Lake Eola Park. Bring a blanket and relax by the lake.",
         location: "Lake Eola Park, Orlando",
         date: "2025-11-16",
-        time: "afternoon",
+        time: "2:00 PM",
         price: 0,
         priceCategory: "free",
         capacity: "large",
@@ -658,7 +786,11 @@ const EVENTS_DATA = [
         interactivity: "low",
         venue: "outdoor",
         duration: "4 hours",
-        tags: ["jazz", "music", "food-trucks", "outdoor", "lake"]
+        tags: ["jazz", "music", "food-trucks", "outdoor", "lake"],
+        externalLink: "https://www.orlando.gov/Parks-the-Environment/Directory/Lake-Eola-Park",
+        source: "City of Orlando Parks official website",
+        locationImage: "https://images.unsplash.com/photo-1580655653885-65763b2597d0?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Lake Eola Park"
     },
     {
         id: 34,
@@ -667,7 +799,7 @@ const EVENTS_DATA = [
         description: "Annual holiday celebration featuring over 50 designer-decorated trees, holiday boutique, and Santa visits on weekends. Transform galleries into a glittering wonderland.",
         location: "Orlando Museum of Art",
         date: "2025-11-15",
-        time: "afternoon",
+        time: "12:00 PM",
         price: 20,
         priceCategory: "budget",
         capacity: "large",
@@ -678,7 +810,11 @@ const EVENTS_DATA = [
         interactivity: "low",
         venue: "indoor",
         duration: "3 hours",
-        tags: ["holiday", "art", "museum", "family-friendly", "christmas"]
+        tags: ["holiday", "art", "museum", "family-friendly", "christmas"],
+        externalLink: "https://omart.org/",
+        source: "Orlando Museum of Art official website",
+        locationImage: "https://images.unsplash.com/photo-1578774204375-826dc5d996ed?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Art Museum"
     },
     {
         id: 35,
@@ -687,7 +823,7 @@ const EVENTS_DATA = [
         description: "The legendary punk rock and alternative music festival returns to Orlando! Multiple stages featuring top bands and emerging artists.",
         location: "Camping World Stadium, Orlando",
         date: "2025-11-15",
-        time: "afternoon",
+        time: "12:00 PM",
         price: 75,
         priceCategory: "premium",
         capacity: "large",
@@ -698,7 +834,11 @@ const EVENTS_DATA = [
         interactivity: "high",
         venue: "outdoor",
         duration: "8 hours",
-        tags: ["punk", "rock", "festival", "music", "concert"]
+        tags: ["punk", "rock", "festival", "music", "concert"],
+        externalLink: "https://vanswarpedtour.com/",
+        source: "Vans Warped Tour official website",
+        locationImage: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Rock Festival"
     },
     {
         id: 36,
@@ -707,7 +847,7 @@ const EVENTS_DATA = [
         description: "Witness the lighting of a six-story Christmas tree with 88,000 animated lights. Holiday performances, food trucks, and a festive market.",
         location: "Lake Eola Park, Orlando",
         date: "2025-11-23",
-        time: "evening",
+        time: "6:00 PM",
         price: 0,
         priceCategory: "free",
         capacity: "large",
@@ -718,7 +858,11 @@ const EVENTS_DATA = [
         interactivity: "medium",
         venue: "outdoor",
         duration: "3 hours",
-        tags: ["christmas", "holiday", "family-friendly", "lights", "community"]
+        tags: ["christmas", "holiday", "family-friendly", "lights", "community"],
+        externalLink: "https://www.orlando.gov/Parks-the-Environment/Directory/Lake-Eola-Park",
+        source: "City of Orlando Parks official website",
+        locationImage: "https://images.unsplash.com/photo-1580655653885-65763b2597d0?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Lake Eola Park"
     },
     {
         id: 37,
@@ -727,7 +871,7 @@ const EVENTS_DATA = [
         description: "Orlando's 50-acre botanical garden transforms into a stunning winter wonderland with a million dazzling lights, shining forests, magical displays, music and beautiful sculptures.",
         location: "Harry P. Leu Gardens, Orlando",
         date: "2025-11-28",
-        time: "evening",
+        time: "6:00 PM",
         price: 25,
         priceCategory: "moderate",
         capacity: "large",
@@ -738,7 +882,11 @@ const EVENTS_DATA = [
         interactivity: "low",
         venue: "outdoor",
         duration: "2 hours",
-        tags: ["lights", "gardens", "holiday", "romantic", "photography"]
+        tags: ["lights", "gardens", "holiday", "romantic", "photography"],
+        externalLink: "https://www.leugardens.org/",
+        source: "Harry P. Leu Gardens official website",
+        locationImage: "https://images.unsplash.com/photo-1470058869958-2a77ade41c02?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Botanical Gardens"
     },
     {
         id: 38,
@@ -747,7 +895,7 @@ const EVENTS_DATA = [
         description: "Free two-day celebration exploring the world through dance, music, fashion, marketplaces, film, cooking, and visual arts. A multicultural extravaganza!",
         location: "Seneff Arts Plaza at Dr. Phillips Center, Orlando",
         date: "2025-11-29",
-        time: "morning",
+        time: "10:00 AM",
         price: 0,
         priceCategory: "free",
         capacity: "large",
@@ -758,7 +906,11 @@ const EVENTS_DATA = [
         interactivity: "medium",
         venue: "outdoor",
         duration: "8 hours",
-        tags: ["cultural", "international", "arts", "food", "family-friendly"]
+        tags: ["cultural", "international", "arts", "food", "family-friendly"],
+        externalLink: "https://www.drphillipscenter.org/",
+        source: "Dr. Phillips Center for the Performing Arts",
+        locationImage: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Cultural Festival"
     },
     {
         id: 39,
@@ -767,7 +919,7 @@ const EVENTS_DATA = [
         description: "Downtown Orlando Partnership's annual event featuring keynote by Mayor Buddy Dyer. Learn about downtown development, growth, and future plans.",
         location: "Downtown Orlando",
         date: "2025-12-02",
-        time: "morning",
+        time: "9:00 AM",
         price: 30,
         priceCategory: "moderate",
         capacity: "medium",
@@ -778,7 +930,11 @@ const EVENTS_DATA = [
         interactivity: "low",
         venue: "indoor",
         duration: "2 hours",
-        tags: ["business", "networking", "civic", "urban-planning", "professional"]
+        tags: ["business", "networking", "civic", "urban-planning", "professional"],
+        externalLink: "https://www.downtownorlando.com/",
+        source: "Downtown Orlando Partnership official website",
+        locationImage: "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Downtown Orlando"
     },
     {
         id: 40,
@@ -787,7 +943,7 @@ const EVENTS_DATA = [
         description: "Free two-hour musical celebration featuring the Bach Festival Society of Winter Park and The Charles Hosmer Morse Museum of American Art.",
         location: "Winter Park",
         date: "2025-12-04",
-        time: "evening",
+        time: "6:00 PM",
         price: 0,
         priceCategory: "free",
         capacity: "large",
@@ -798,7 +954,11 @@ const EVENTS_DATA = [
         interactivity: "low",
         venue: "outdoor",
         duration: "2 hours",
-        tags: ["christmas", "classical", "music", "free", "holiday"]
+        tags: ["christmas", "classical", "music", "free", "holiday"],
+        externalLink: "https://cityofwinterpark.org/",
+        source: "City of Winter Park events calendar",
+        locationImage: "https://images.unsplash.com/photo-1480775661506-541bb9d526b8?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Winter Park"
     },
     {
         id: 41,
@@ -807,7 +967,7 @@ const EVENTS_DATA = [
         description: "Holiday tradition with strolling carolers, tree lighting, menorah lighting, s'mores, outdoor movie and more festive activities.",
         location: "Park Avenue, Winter Park",
         date: "2025-12-05",
-        time: "evening",
+        time: "5:00 PM",
         price: 0,
         priceCategory: "free",
         capacity: "large",
@@ -818,7 +978,11 @@ const EVENTS_DATA = [
         interactivity: "medium",
         venue: "outdoor",
         duration: "3 hours",
-        tags: ["holiday", "family-friendly", "winter", "community", "free"]
+        tags: ["holiday", "family-friendly", "winter", "community", "free"],
+        externalLink: "https://cityofwinterpark.org/",
+        source: "City of Winter Park events calendar",
+        locationImage: "https://images.unsplash.com/photo-1480775661506-541bb9d526b8?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Winter Park"
     },
     {
         id: 42,
@@ -827,7 +991,7 @@ const EVENTS_DATA = [
         description: "73rd annual parade featuring festive floats, marching bands, and holiday cheer through charming Winter Park streets.",
         location: "Winter Park",
         date: "2025-12-06",
-        time: "afternoon",
+        time: "2:00 PM",
         price: 0,
         priceCategory: "free",
         capacity: "large",
@@ -838,7 +1002,11 @@ const EVENTS_DATA = [
         interactivity: "low",
         venue: "outdoor",
         duration: "2 hours",
-        tags: ["parade", "christmas", "family-friendly", "tradition", "holiday"]
+        tags: ["parade", "christmas", "family-friendly", "tradition", "holiday"],
+        externalLink: "https://cityofwinterpark.org/",
+        source: "City of Winter Park events calendar",
+        locationImage: "https://images.unsplash.com/photo-1480775661506-541bb9d526b8?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Winter Park"
     },
     {
         id: 43,
@@ -847,7 +1015,7 @@ const EVENTS_DATA = [
         description: "Florida's largest local art and food festival. The Milk District fills with local art, food trucks, live music, and handmade goods.",
         location: "The Milk District, Orlando",
         date: "2025-12-21",
-        time: "afternoon",
+        time: "12:00 PM",
         price: 0,
         priceCategory: "free",
         capacity: "large",
@@ -858,7 +1026,11 @@ const EVENTS_DATA = [
         interactivity: "medium",
         venue: "outdoor",
         duration: "6 hours",
-        tags: ["art", "market", "food", "local", "shopping"]
+        tags: ["art", "market", "food", "local", "shopping"],
+        externalLink: "https://www.themilkdistrict.com/",
+        source: "The Milk District official website",
+        locationImage: "https://images.unsplash.com/photo-1533900298318-6b8da08a523e?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Art Market"
     },
     {
         id: 44,
@@ -867,7 +1039,7 @@ const EVENTS_DATA = [
         description: "Downtown Orlando's premier New Year's Eve celebration on Magnolia Avenue with live music, food, drinks, and midnight countdown.",
         location: "Magnolia Avenue, Downtown Orlando",
         date: "2025-12-31",
-        time: "night",
+        time: "8:00 PM",
         price: 40,
         priceCategory: "moderate",
         capacity: "large",
@@ -878,7 +1050,11 @@ const EVENTS_DATA = [
         interactivity: "high",
         venue: "outdoor",
         duration: "5 hours",
-        tags: ["new-years", "party", "celebration", "nightlife", "downtown"]
+        tags: ["new-years", "party", "celebration", "nightlife", "downtown"],
+        externalLink: "https://www.downtownorlando.com/events/",
+        source: "Downtown Orlando official events calendar",
+        locationImage: "https://images.unsplash.com/photo-1467810563316-b5476525c0f9?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - New Years Celebration"
     },
     {
         id: 45,
@@ -887,7 +1063,7 @@ const EVENTS_DATA = [
         description: "Weekly Friday night market in Thornton Park featuring 20+ local vendors, artisan goods, and community vibes.",
         location: "431 E Central Blvd, Thornton Park, Orlando",
         date: "2025-11-14",
-        time: "evening",
+        time: "6:00 PM",
         price: 0,
         priceCategory: "free",
         capacity: "medium",
@@ -898,7 +1074,11 @@ const EVENTS_DATA = [
         interactivity: "medium",
         venue: "outdoor",
         duration: "4 hours",
-        tags: ["market", "local", "shopping", "community", "weekly"]
+        tags: ["market", "local", "shopping", "community", "weekly"],
+        externalLink: "https://www.thorntonparkorlando.com/",
+        source: "Thornton Park District official website",
+        locationImage: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Night Market"
     },
     {
         id: 46,
@@ -907,7 +1087,7 @@ const EVENTS_DATA = [
         description: "Every Friday night, explore handcrafted artisan products and tasty cuisine. Enjoy wine while viewing art on The Beacon installation.",
         location: "Lake Nona Town Center",
         date: "2025-11-21",
-        time: "evening",
+        time: "6:00 PM",
         price: 0,
         priceCategory: "free",
         capacity: "medium",
@@ -918,7 +1098,11 @@ const EVENTS_DATA = [
         interactivity: "medium",
         venue: "outdoor",
         duration: "3 hours",
-        tags: ["art", "market", "wine", "weekly", "local"]
+        tags: ["art", "market", "wine", "weekly", "local"],
+        externalLink: "https://www.lakenona.com/events/",
+        source: "Lake Nona Town Center events calendar",
+        locationImage: "https://images.unsplash.com/photo-1531243269054-5ebf6f34081e?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Art Gallery"
     },
     {
         id: 47,
@@ -927,7 +1111,7 @@ const EVENTS_DATA = [
         description: "Collective of local artists in a colorful center of art studios. Explore over 20 local artists creating original and affordable art.",
         location: "Faith Arts Village Orlando (FAVO)",
         date: "2025-12-05",
-        time: "evening",
+        time: "6:00 PM",
         price: 0,
         priceCategory: "free",
         capacity: "small",
@@ -938,6 +1122,10 @@ const EVENTS_DATA = [
         interactivity: "high",
         venue: "indoor",
         duration: "4 hours",
-        tags: ["art", "gallery", "local", "studios", "community"]
+        tags: ["art", "gallery", "local", "studios", "community"],
+        externalLink: "https://www.faithartsvillage.org/",
+        source: "Faith Arts Village Orlando official website",
+        locationImage: "https://images.unsplash.com/photo-1531243269054-5ebf6f34081e?w=800&auto=format&fit=crop",
+        locationImageSource: "Unsplash - Art Gallery"
     }
 ];

@@ -5,34 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Central Florida Events - Personality-Based Recommendations</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar">
-        <div class="sidebar-header">
-            <h1>CFEvents</h1>
-            <p class="tagline">Your Perfect Event Match</p>
-        </div>
-        <nav class="sidebar-nav">
-            <button class="nav-btn active" data-tab="explore">
-                <span class="icon">🔍</span>
-                <span>Explore</span>
-            </button>
-            <button class="nav-btn" data-tab="saved">
-                <span class="icon">❤️</span>
-                <span>Saved</span>
-            </button>
-            <button class="nav-btn" data-tab="reviews">
-                <span class="icon">⭐</span>
-                <span>My Reviews</span>
-            </button>
-        </nav>
-        <div class="sidebar-profile">
-            <div class="profile-info" id="profileInfo">
-                <button class="btn-profile" id="startOnboarding">Get Started</button>
+    <!-- Top Navigation Bar -->
+    <header class="top-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <h1 class="logo-text">CFEvents</h1>
+                <span class="logo-sparkle">✨</span>
             </div>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Collapsible Side Menu -->
+    <aside class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <button class="close-menu" id="closeMenu" aria-label="Close menu">&times;</button>
+        </div>
+        <div class="side-menu-content">
+            <div class="profile-section" id="profileInfo">
+                <button class="btn-profile" id="startOnboarding">Get Started 🚀</button>
+            </div>
+            <nav class="menu-nav">
+                <button class="nav-btn active" data-tab="explore">
+                    <span class="icon">🔍</span>
+                    <span>Explore</span>
+                </button>
+                <button class="nav-btn" data-tab="saved">
+                    <span class="icon">💖</span>
+                    <span>Saved</span>
+                </button>
+                <button class="nav-btn" data-tab="reviews">
+                    <span class="icon">⭐</span>
+                    <span>My Reviews</span>
+                </button>
+            </nav>
         </div>
     </aside>
+
+    <!-- Overlay for menu -->
+    <div class="menu-overlay" id="menuOverlay"></div>
 
     <!-- Main Content Area -->
     <main class="main-content">
@@ -351,6 +371,55 @@
 
         <!-- Explore Screen -->
         <div id="exploreScreen" class="screen">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-content">
+                    <div class="hero-badge">✨ Your vibe, your events ✨</div>
+                    <h1 class="hero-title">
+                        Find Events That<br>
+                        <span class="gradient-text">Match Your Energy</span>
+                    </h1>
+                    <p class="hero-description">
+                        Discover local experiences in Central Florida tailored to your unique personality.
+                        From chill coffee shop poetry nights to high-energy festivals—we've got your perfect match.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">47+</div>
+                            <div class="stat-label">Local Events</div>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Personalized</div>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <div class="stat-number">Free</div>
+                            <div class="stat-label">Options Available</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="floating-card card-1">
+                        <span class="card-emoji">🎨</span>
+                        <span class="card-text">Art & Culture</span>
+                    </div>
+                    <div class="floating-card card-2">
+                        <span class="card-emoji">🎵</span>
+                        <span class="card-text">Live Music</span>
+                    </div>
+                    <div class="floating-card card-3">
+                        <span class="card-emoji">🌮</span>
+                        <span class="card-text">Food & Drink</span>
+                    </div>
+                    <div class="floating-card card-4">
+                        <span class="card-emoji">🏃</span>
+                        <span class="card-text">Active & Outdoors</span>
+                    </div>
+                </div>
+            </section>
+
             <div class="content-header">
                 <h2>Discover Events</h2>
                 <div class="header-controls">

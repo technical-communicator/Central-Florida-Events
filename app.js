@@ -57,6 +57,29 @@ function initializeApp() {
 
 // Setup all event listeners
 function setupEventListeners() {
+    // Hamburger menu
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const sideMenu = document.getElementById('sideMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const closeMenuBtn = document.getElementById('closeMenu');
+
+    hamburgerBtn.addEventListener('click', () => {
+        hamburgerBtn.classList.toggle('active');
+        sideMenu.classList.toggle('active');
+        menuOverlay.classList.toggle('active');
+        document.body.style.overflow = sideMenu.classList.contains('active') ? 'hidden' : '';
+    });
+
+    closeMenuBtn.addEventListener('click', closeMenu);
+    menuOverlay.addEventListener('click', closeMenu);
+
+    function closeMenu() {
+        hamburgerBtn.classList.remove('active');
+        sideMenu.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
     // Onboarding navigation
     document.getElementById('nextBtn').addEventListener('click', handleNext);
     document.getElementById('prevBtn').addEventListener('click', handlePrevious);
@@ -66,13 +89,15 @@ function setupEventListeners() {
         saveStateToLocalStorage();
         showScreen('onboarding');
         updateOnboardingStep();
+        closeMenu();
     });
 
-    // Sidebar navigation
+    // Menu navigation
     document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const tab = btn.dataset.tab;
             switchTab(tab);
+            closeMenu();
         });
     });
 
@@ -240,15 +265,17 @@ function updateProfileDisplay() {
 
     if (AppState.userProfile) {
         profileInfo.innerHTML = `
-            <div class="personality-badge">${AppState.userProfile.personalityType}</div>
-            <div class="profile-details">
-                <div>${getPersonalityDescription(AppState.userProfile.personalityType)}</div>
-                <div class="mt-1">
-                    <strong>Preferences:</strong><br>
-                    ${AppState.userProfile.vibes.slice(0, 3).join(', ')}
+            <div style="text-align: center; margin-bottom: 1rem;">
+                <div style="font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem;">${AppState.userProfile.personalityType}</div>
+                <div style="font-size: 0.875rem; opacity: 0.9;">${getPersonalityDescription(AppState.userProfile.personalityType)}</div>
+            </div>
+            <div style="background: rgba(255, 255, 255, 0.2); padding: 0.75rem; border-radius: 12px; margin-bottom: 1rem; backdrop-filter: blur(10px);">
+                <div style="font-size: 0.75rem; opacity: 0.8; margin-bottom: 0.25rem;">Your vibes:</div>
+                <div style="font-size: 0.875rem; font-weight: 600;">
+                    ${AppState.userProfile.vibes.slice(0, 3).map(v => v.charAt(0).toUpperCase() + v.slice(1)).join(' • ')}
                 </div>
             </div>
-            <button class="btn-profile mt-2" id="resetProfile">New Profile</button>
+            <button class="btn-profile" id="resetProfile" style="background: white; color: var(--primary-color); border: none; padding: 0.75rem 1.5rem; border-radius: 12px; font-weight: 600; cursor: pointer; width: 100%; transition: all 0.2s;">Retake Quiz 🔄</button>
         `;
 
         document.getElementById('resetProfile').addEventListener('click', () => {
@@ -479,10 +506,16 @@ function createEventCard(event) {
 
     return `
         <div class="event-card" data-event-id="${event.id}">
+            ${event.locationImage ? `
+            <div class="event-card-image" style="background-image: url('${event.locationImage}');">
+                ${AppState.userProfile ? `<span class="match-score">${event.matchScore}% Match</span>` : ''}
+            </div>
+            ` : `
             <div class="event-card-header">
                 <span class="event-icon">${event.image}</span>
                 ${AppState.userProfile ? `<span class="match-score">${event.matchScore}% Match</span>` : ''}
             </div>
+            `}
             <div class="event-card-body">
                 <h3>${event.name}</h3>
                 <div class="event-meta">
@@ -497,6 +530,11 @@ function createEventCard(event) {
                 <div class="event-card-footer">
                     <span class="price-tag ${priceClass}">${priceDisplay}</span>
                     <div class="action-buttons">
+                        ${event.externalLink ? `
+                        <a href="${event.externalLink}" target="_blank" rel="noopener noreferrer" class="icon-btn link-btn" title="Visit website" onclick="event.stopPropagation();">
+                            🔗
+                        </a>
+                        ` : ''}
                         <button class="icon-btn save-btn ${isSaved ? 'active' : ''}" data-event-id="${event.id}" title="${isSaved ? 'Unsave' : 'Save'}">
                             ${isSaved ? '❤️' : '🤍'}
                         </button>
@@ -605,7 +643,20 @@ function showEventDetails(eventId) {
             </div>
         </div>
 
+        ${event.source ? `
+        <div class="modal-section">
+            <h4>ℹ️ Source</h4>
+            <p style="color: var(--text-secondary); font-size: 0.875rem;">${event.source}</p>
+            ${event.locationImageSource ? `<p style="color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.5rem;">📸 Image: ${event.locationImageSource}</p>` : ''}
+        </div>
+        ` : ''}
+
         <div class="modal-actions">
+            ${event.externalLink ? `
+            <a href="${event.externalLink}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="text-decoration: none; text-align: center;">
+                🔗 Visit Website
+            </a>
+            ` : ''}
             <button class="btn btn-secondary" onclick="toggleSaveEvent(${eventId}); showEventDetails(${eventId})">
                 ${isSaved ? '❤️ Saved' : '🤍 Save Event'}
             </button>
