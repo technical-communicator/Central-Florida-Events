@@ -7,7 +7,10 @@ const AppState = {
     reviews: [],
     currentScreen: 'explore',
     currentEventId: null,
-    events: EVENTS_DATA
+    events: EVENTS_DATA,
+    isAdmin: false,
+    adminPassword: 'admin123', // Default admin password
+    currentAdminTab: 'pending'
 };
 
 // Initialize app on page load
@@ -22,11 +25,14 @@ function loadStateFromLocalStorage() {
     const userSubmittedEvents = localStorage.getItem('userSubmittedEvents');
     const savedEvents = localStorage.getItem('savedEvents');
     const savedReviews = localStorage.getItem('reviews');
+    const adminPassword = localStorage.getItem('adminPassword');
+    const isAdmin = localStorage.getItem('isAdmin') === 'true';
 
     if (userSubmittedEvents) {
         AppState.userSubmittedEvents = JSON.parse(userSubmittedEvents);
-        // Merge user-submitted events with existing events
-        AppState.events = [...EVENTS_DATA, ...AppState.userSubmittedEvents];
+        // Only merge approved user-submitted events with existing events for public view
+        const approvedEvents = AppState.userSubmittedEvents.filter(e => e.status === 'approved');
+        AppState.events = [...EVENTS_DATA, ...approvedEvents];
     }
     if (savedEvents) {
         AppState.savedEvents = new Set(JSON.parse(savedEvents));
@@ -34,6 +40,10 @@ function loadStateFromLocalStorage() {
     if (savedReviews) {
         AppState.reviews = JSON.parse(savedReviews);
     }
+    if (adminPassword) {
+        AppState.adminPassword = adminPassword;
+    }
+    AppState.isAdmin = isAdmin;
 }
 
 // Save state to localStorage
@@ -41,6 +51,8 @@ function saveStateToLocalStorage() {
     localStorage.setItem('userSubmittedEvents', JSON.stringify(AppState.userSubmittedEvents));
     localStorage.setItem('savedEvents', JSON.stringify([...AppState.savedEvents]));
     localStorage.setItem('reviews', JSON.stringify(AppState.reviews));
+    localStorage.setItem('adminPassword', AppState.adminPassword);
+    localStorage.setItem('isAdmin', AppState.isAdmin.toString());
 }
 
 // Initialize the application
@@ -127,6 +139,35 @@ function setupEventListeners() {
             showScreen('onboarding');
         });
     }
+
+    // Admin button
+    document.getElementById('adminBtn').addEventListener('click', () => {
+        if (AppState.isAdmin) {
+            showScreen('admin');
+            displayAdminEvents();
+            closeMenu();
+        } else {
+            promptAdminLogin();
+        }
+    });
+
+    // Admin logout
+    document.getElementById('adminLogoutBtn').addEventListener('click', () => {
+        AppState.isAdmin = false;
+        saveStateToLocalStorage();
+        alert('Logged out successfully');
+        showScreen('explore');
+    });
+
+    // Admin tabs
+    document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            AppState.currentAdminTab = btn.dataset.adminTab;
+            displayAdminEvents();
+        });
+    });
 }
 
 // Event Registration Functions
@@ -197,14 +238,15 @@ function handleEventSubmission(e) {
         source: 'User Submitted Event',
         contactEmail: formData.get('contactEmail'),
         userSubmitted: true,
-        submittedAt: new Date().toISOString()
+        submittedAt: new Date().toISOString(),
+        status: 'pending' // Events start as pending and need admin approval
     };
 
     // Add to user submitted events
     AppState.userSubmittedEvents.push(newEvent);
 
-    // Add to events array
-    AppState.events.push(newEvent);
+    // Do NOT add to events array yet - only approved events should be visible
+    // AppState.events.push(newEvent);
 
     // Save to localStorage
     saveStateToLocalStorage();
@@ -213,7 +255,7 @@ function handleEventSubmission(e) {
     e.target.reset();
 
     // Show success message
-    alert('Event submitted successfully! Your event is now visible to the community.');
+    alert('Event submitted successfully! Your event is pending administrator approval and will be visible once approved.');
 
     // Navigate to explore screen
     showScreen('explore');
@@ -230,7 +272,9 @@ function showScreen(screenName) {
         'onboarding': 'onboardingScreen',
         'explore': 'exploreScreen',
         'saved': 'savedScreen',
-        'reviews': 'reviewsScreen'
+        'reviews': 'reviewsScreen',
+        'admin': 'adminScreen',
+        'thisWeek': 'thisWeekScreen'
     };
 
     document.getElementById(screenMap[screenName]).classList.add('active');
@@ -257,6 +301,124 @@ function switchTab(tab) {
         displaySavedEvents();
     } else if (tab === 'reviews') {
         displayReviews();
+    }
+}
+
+// Admin Functions
+function promptAdminLogin() {
+    const password = prompt('Enter admin password:');
+    if (password === AppState.adminPassword) {
+        AppState.isAdmin = true;
+        saveStateToLocalStorage();
+        alert('Successfully logged in as administrator');
+        showScreen('admin');
+        displayAdminEvents();
+    } else if (password !== null) {
+        alert('Incorrect password');
+    }
+}
+
+function displayAdminEvents() {
+    const container = document.getElementById('adminEventsContainer');
+    const tab = AppState.currentAdminTab;
+
+    let events = AppState.userSubmittedEvents.filter(e => e.status === tab);
+
+    if (events.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <span class="empty-icon">📋</span>
+                <h3>No ${tab} events</h3>
+                <p>There are currently no events with status: ${tab}</p>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = events.map(event => createAdminEventCard(event)).join('');
+}
+
+function createAdminEventCard(event) {
+    const priceDisplay = event.price === 0 ? 'FREE' : `$${event.price}`;
+    const statusColor = event.status === 'approved' ? '#4caf50' : event.status === 'rejected' ? '#f44336' : '#ff9800';
+
+    return `
+        <div class="admin-event-card">
+            <div class="admin-event-header">
+                <div>
+                    <h3>${event.name}</h3>
+                    <span class="admin-event-status" style="background: ${statusColor};">${event.status.toUpperCase()}</span>
+                </div>
+                <span class="event-icon">${event.image}</span>
+            </div>
+            <div class="admin-event-body">
+                <div class="admin-event-meta">
+                    <span>📍 ${event.location}</span>
+                    <span>📅 ${formatDate(event.date)}</span>
+                    <span>⏰ ${event.time}</span>
+                    <span>💰 ${priceDisplay}</span>
+                </div>
+                <p><strong>Category:</strong> ${event.category}</p>
+                <p><strong>Description:</strong> ${event.description}</p>
+                <p><strong>Vibes:</strong> ${event.vibes.join(', ')}</p>
+                <p><strong>Contact:</strong> ${event.contactEmail}</p>
+                ${event.externalLink ? `<p><strong>Website:</strong> <a href="${event.externalLink}" target="_blank">${event.externalLink}</a></p>` : ''}
+                <p><strong>Submitted:</strong> ${new Date(event.submittedAt).toLocaleString()}</p>
+            </div>
+            <div class="admin-event-actions">
+                ${event.status === 'pending' ? `
+                    <button class="btn btn-primary" onclick="approveEvent(${event.id})">✅ Approve</button>
+                    <button class="btn btn-secondary" onclick="rejectEvent(${event.id})">❌ Reject</button>
+                ` : event.status === 'approved' ? `
+                    <button class="btn btn-secondary" onclick="rejectEvent(${event.id})">❌ Reject</button>
+                ` : `
+                    <button class="btn btn-primary" onclick="approveEvent(${event.id})">✅ Approve</button>
+                `}
+                <button class="btn btn-secondary" onclick="deleteEvent(${event.id})" style="background: #f44336;">🗑️ Delete</button>
+            </div>
+        </div>
+    `;
+}
+
+function approveEvent(eventId) {
+    const event = AppState.userSubmittedEvents.find(e => e.id === eventId);
+    if (event) {
+        event.status = 'approved';
+        // Add to main events array
+        AppState.events.push(event);
+        saveStateToLocalStorage();
+        displayAdminEvents();
+        alert('Event approved successfully!');
+    }
+}
+
+function rejectEvent(eventId) {
+    const event = AppState.userSubmittedEvents.find(e => e.id === eventId);
+    if (event) {
+        const wasApproved = event.status === 'approved';
+        event.status = 'rejected';
+        // Remove from main events array if it was approved
+        if (wasApproved) {
+            AppState.events = AppState.events.filter(e => e.id !== eventId);
+        }
+        saveStateToLocalStorage();
+        displayAdminEvents();
+        alert('Event rejected successfully!');
+    }
+}
+
+function deleteEvent(eventId) {
+    if (confirm('Are you sure you want to permanently delete this event?')) {
+        const event = AppState.userSubmittedEvents.find(e => e.id === eventId);
+        if (event && event.status === 'approved') {
+            // Remove from main events array
+            AppState.events = AppState.events.filter(e => e.id !== eventId);
+        }
+        // Remove from user submitted events
+        AppState.userSubmittedEvents = AppState.userSubmittedEvents.filter(e => e.id !== eventId);
+        saveStateToLocalStorage();
+        displayAdminEvents();
+        alert('Event deleted successfully!');
     }
 }
 
@@ -947,3 +1109,7 @@ window.toggleSaveEvent = toggleSaveEvent;
 window.showEventDetails = showEventDetails;
 window.openReviewForm = openReviewForm;
 window.viewRecommendedEvent = viewRecommendedEvent;
+window.approveEvent = approveEvent;
+window.rejectEvent = rejectEvent;
+window.deleteEvent = deleteEvent;
+window.showScreen = showScreen;
