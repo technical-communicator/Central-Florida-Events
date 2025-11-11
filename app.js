@@ -2,12 +2,10 @@
 
 // State Management
 const AppState = {
-    currentStep: 1,
-    totalSteps: 8,
-    userProfile: null,
+    userSubmittedEvents: [],
     savedEvents: new Set(),
     reviews: [],
-    currentScreen: 'onboarding',
+    currentScreen: 'explore',
     currentEventId: null,
     events: EVENTS_DATA
 };
@@ -21,12 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Load state from localStorage
 function loadStateFromLocalStorage() {
-    const savedProfile = localStorage.getItem('userProfile');
+    const userSubmittedEvents = localStorage.getItem('userSubmittedEvents');
     const savedEvents = localStorage.getItem('savedEvents');
     const savedReviews = localStorage.getItem('reviews');
 
-    if (savedProfile) {
-        AppState.userProfile = JSON.parse(savedProfile);
+    if (userSubmittedEvents) {
+        AppState.userSubmittedEvents = JSON.parse(userSubmittedEvents);
+        // Merge user-submitted events with existing events
+        AppState.events = [...EVENTS_DATA, ...AppState.userSubmittedEvents];
     }
     if (savedEvents) {
         AppState.savedEvents = new Set(JSON.parse(savedEvents));
@@ -38,7 +38,7 @@ function loadStateFromLocalStorage() {
 
 // Save state to localStorage
 function saveStateToLocalStorage() {
-    localStorage.setItem('userProfile', JSON.stringify(AppState.userProfile));
+    localStorage.setItem('userSubmittedEvents', JSON.stringify(AppState.userSubmittedEvents));
     localStorage.setItem('savedEvents', JSON.stringify([...AppState.savedEvents]));
     localStorage.setItem('reviews', JSON.stringify(AppState.reviews));
 }
@@ -50,15 +50,6 @@ function initializeApp() {
     // Always show explore screen by default (hero page)
     showScreen('explore');
     displayEvents();
-
-    if (AppState.userProfile) {
-        updateProfileDisplay();
-        // Hide the hero quiz CTA if user has completed the quiz
-        const heroQuizCta = document.getElementById('heroQuizCta');
-        if (heroQuizCta) {
-            heroQuizCta.classList.add('hidden');
-        }
-    }
 }
 
 // Setup all event listeners
@@ -86,17 +77,16 @@ function setupEventListeners() {
         document.body.style.overflow = '';
     }
 
-    // Onboarding navigation
-    document.getElementById('nextBtn').addEventListener('click', handleNext);
-    document.getElementById('prevBtn').addEventListener('click', handlePrevious);
-    document.getElementById('startOnboarding').addEventListener('click', () => {
-        AppState.userProfile = null;
-        AppState.currentStep = 1;
-        saveStateToLocalStorage();
+    // Event registration form
+    document.getElementById('addEventBtn').addEventListener('click', () => {
         showScreen('onboarding');
-        updateOnboardingStep();
         closeMenu();
     });
+
+    const eventForm = document.getElementById('eventRegistrationForm');
+    if (eventForm) {
+        eventForm.addEventListener('submit', handleEventSubmission);
+    }
 
     // Menu navigation
     document.querySelectorAll('.nav-btn').forEach(btn => {
@@ -130,210 +120,104 @@ function setupEventListeners() {
     // Submit review
     document.getElementById('submitReview').addEventListener('click', handleReviewSubmit);
 
-    // Radio button listeners for onboarding
-    document.querySelectorAll('input[type="radio"]').forEach(input => {
-        input.addEventListener('change', validateCurrentStep);
-    });
-    document.querySelectorAll('input[name="vibes"]').forEach(input => {
-        input.addEventListener('change', validateCurrentStep);
-    });
-
-    // Hero quiz CTA button
-    const heroQuizCta = document.getElementById('heroQuizCta');
-    if (heroQuizCta) {
-        heroQuizCta.addEventListener('click', () => {
-            AppState.userProfile = null;
-            AppState.currentStep = 1;
-            saveStateToLocalStorage();
+    // Hero Add Event CTA button
+    const heroAddEventCta = document.getElementById('heroAddEventCta');
+    if (heroAddEventCta) {
+        heroAddEventCta.addEventListener('click', () => {
             showScreen('onboarding');
-            updateOnboardingStep();
         });
     }
 }
 
-// Onboarding Flow Functions
-function handleNext() {
-    if (!validateCurrentStep()) {
+// Event Registration Functions
+function handleEventSubmission(e) {
+    e.preventDefault();
+
+    // Collect form data
+    const formData = new FormData(e.target);
+
+    // Get selected vibes
+    const vibes = Array.from(document.querySelectorAll('input[name="eventVibes"]:checked'))
+        .map(input => input.value);
+
+    // Validate at least one vibe is selected
+    if (vibes.length === 0) {
+        alert('Please select at least one event vibe');
         return;
     }
 
-    if (AppState.currentStep < AppState.totalSteps) {
-        AppState.currentStep++;
-        updateOnboardingStep();
+    // Determine price category
+    const price = parseFloat(formData.get('eventPrice'));
+    let priceCategory;
+    if (price === 0) {
+        priceCategory = 'free';
+    } else if (price <= 20) {
+        priceCategory = 'budget';
+    } else if (price <= 50) {
+        priceCategory = 'moderate';
     } else {
-        completeOnboarding();
-    }
-}
-
-function handlePrevious() {
-    if (AppState.currentStep > 1) {
-        AppState.currentStep--;
-        updateOnboardingStep();
-    }
-}
-
-function updateOnboardingStep() {
-    // Update progress bar
-    const progress = (AppState.currentStep / AppState.totalSteps) * 100;
-    document.getElementById('progressFill').style.width = `${progress}%`;
-    document.getElementById('currentStep').textContent = AppState.currentStep;
-
-    // Show/hide steps
-    document.querySelectorAll('.onboarding-step').forEach((step, index) => {
-        if (index + 1 === AppState.currentStep) {
-            step.classList.add('active');
-        } else {
-            step.classList.remove('active');
-        }
-    });
-
-    // Update button visibility
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-
-    if (AppState.currentStep === 1) {
-        prevBtn.style.visibility = 'hidden';
-    } else {
-        prevBtn.style.visibility = 'visible';
+        priceCategory = 'premium';
     }
 
-    if (AppState.currentStep === AppState.totalSteps) {
-        nextBtn.textContent = 'Complete';
-    } else {
-        nextBtn.textContent = 'Next';
-    }
+    // Generate a unique ID for the event
+    const newEventId = Date.now();
 
-    validateCurrentStep();
-}
-
-function validateCurrentStep() {
-    const nextBtn = document.getElementById('nextBtn');
-    let isValid = false;
-
-    switch (AppState.currentStep) {
-        case 1:
-            isValid = true; // Welcome screen
-            break;
-        case 2:
-            isValid = document.querySelector('input[name="energy"]:checked') !== null;
-            break;
-        case 3:
-            isValid = document.querySelector('input[name="sensing"]:checked') !== null;
-            break;
-        case 4:
-            isValid = document.querySelector('input[name="thinking"]:checked') !== null;
-            break;
-        case 5:
-            isValid = document.querySelector('input[name="judging"]:checked') !== null;
-            break;
-        case 6:
-            const checkedVibes = document.querySelectorAll('input[name="vibes"]:checked');
-            isValid = checkedVibes.length >= 3;
-            break;
-        case 7:
-            isValid = document.querySelector('input[name="budget"]:checked') !== null;
-            break;
-        case 8:
-            const groupSize = document.querySelector('input[name="groupSize"]:checked') !== null;
-            const timePreference = document.querySelector('input[name="timePreference"]:checked') !== null;
-            isValid = groupSize && timePreference;
-            break;
-    }
-
-    nextBtn.disabled = !isValid;
-    return isValid;
-}
-
-function completeOnboarding() {
-    // Collect all user data
-    const energy = document.querySelector('input[name="energy"]:checked').value;
-    const sensing = document.querySelector('input[name="sensing"]:checked').value;
-    const thinking = document.querySelector('input[name="thinking"]:checked').value;
-    const judging = document.querySelector('input[name="judging"]:checked').value;
-
-    const vibes = Array.from(document.querySelectorAll('input[name="vibes"]:checked'))
-        .map(input => input.value);
-
-    const budget = document.querySelector('input[name="budget"]:checked').value;
-    const groupSize = document.querySelector('input[name="groupSize"]:checked').value;
-    const timePreference = document.querySelector('input[name="timePreference"]:checked').value;
-
-    // Create personality type
-    const personalityType = `${energy}${sensing}${thinking}${judging}`;
-
-    // Save user profile
-    AppState.userProfile = {
-        personalityType,
-        personalityTraits: [energy, sensing, thinking, judging],
-        vibes,
-        budget,
-        groupSize,
-        timePreference,
-        createdAt: new Date().toISOString()
+    // Get category icon
+    const categoryIcons = {
+        'music': '🎵',
+        'food': '🍽️',
+        'sports': '⚽',
+        'arts': '🎨',
+        'outdoor': '🌳',
+        'education': '📚',
+        'community': '👥'
     };
 
+    // Create new event object
+    const newEvent = {
+        id: newEventId,
+        name: formData.get('eventName'),
+        category: formData.get('eventCategory'),
+        description: formData.get('eventDescription'),
+        location: formData.get('eventLocation'),
+        venue: formData.get('eventVenue') || formData.get('eventLocation'),
+        date: formData.get('eventDate'),
+        time: formData.get('eventTime'),
+        duration: formData.get('eventDuration') || '2 hours',
+        price: price,
+        priceCategory: priceCategory,
+        capacity: formData.get('eventCapacity'),
+        vibes: vibes,
+        image: categoryIcons[formData.get('eventCategory')] || '🎉',
+        personalityTags: [], // Not used anymore
+        groupSizes: ['solo', 'couple', 'small', 'large'], // Allow all group sizes
+        interactivity: 'medium',
+        tags: [formData.get('eventCategory'), ...vibes],
+        externalLink: formData.get('eventWebsite') || null,
+        source: 'User Submitted Event',
+        contactEmail: formData.get('contactEmail'),
+        userSubmitted: true,
+        submittedAt: new Date().toISOString()
+    };
+
+    // Add to user submitted events
+    AppState.userSubmittedEvents.push(newEvent);
+
+    // Add to events array
+    AppState.events.push(newEvent);
+
+    // Save to localStorage
     saveStateToLocalStorage();
-    updateProfileDisplay();
+
+    // Reset form
+    e.target.reset();
+
+    // Show success message
+    alert('Event submitted successfully! Your event is now visible to the community.');
+
+    // Navigate to explore screen
     showScreen('explore');
     displayEvents();
-
-    // Hide the hero quiz CTA button after completing the quiz
-    const heroQuizCta = document.getElementById('heroQuizCta');
-    if (heroQuizCta) {
-        heroQuizCta.classList.add('hidden');
-    }
-}
-
-function updateProfileDisplay() {
-    const profileInfo = document.getElementById('profileInfo');
-
-    if (AppState.userProfile) {
-        profileInfo.innerHTML = `
-            <div style="text-align: center; margin-bottom: 1rem;">
-                <div style="font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem;">${AppState.userProfile.personalityType}</div>
-                <div style="font-size: 0.875rem; opacity: 0.9;">${getPersonalityDescription(AppState.userProfile.personalityType)}</div>
-            </div>
-            <div style="background: rgba(255, 255, 255, 0.2); padding: 0.75rem; border-radius: 12px; margin-bottom: 1rem; backdrop-filter: blur(10px);">
-                <div style="font-size: 0.75rem; opacity: 0.8; margin-bottom: 0.25rem;">Your vibes:</div>
-                <div style="font-size: 0.875rem; font-weight: 600;">
-                    ${AppState.userProfile.vibes.slice(0, 3).map(v => v.charAt(0).toUpperCase() + v.slice(1)).join(' • ')}
-                </div>
-            </div>
-            <button class="btn-profile" id="resetProfile" style="background: white; color: var(--primary-color); border: none; padding: 0.75rem 1.5rem; border-radius: 12px; font-weight: 600; cursor: pointer; width: 100%; transition: all 0.2s;">Retake Quiz 🔄</button>
-        `;
-
-        document.getElementById('resetProfile').addEventListener('click', () => {
-            if (confirm('Are you sure you want to create a new profile? This will reset your preferences.')) {
-                AppState.userProfile = null;
-                AppState.currentStep = 1;
-                saveStateToLocalStorage();
-                showScreen('onboarding');
-                updateOnboardingStep();
-            }
-        });
-    }
-}
-
-function getPersonalityDescription(type) {
-    const descriptions = {
-        'ESTJ': 'The Organizer',
-        'ESTP': 'The Adventurer',
-        'ESFJ': 'The Social Butterfly',
-        'ESFP': 'The Entertainer',
-        'ENTJ': 'The Leader',
-        'ENTP': 'The Innovator',
-        'ENFJ': 'The Connector',
-        'ENFP': 'The Explorer',
-        'ISTJ': 'The Planner',
-        'ISTP': 'The Craftsperson',
-        'ISFJ': 'The Nurturer',
-        'ISFP': 'The Artist',
-        'INTJ': 'The Strategist',
-        'INTP': 'The Thinker',
-        'INFJ': 'The Idealist',
-        'INFP': 'The Dreamer'
-    };
-    return descriptions[type] || 'Unique Individual';
 }
 
 // Screen Management
@@ -376,59 +260,34 @@ function switchTab(tab) {
     }
 }
 
-// Recommendation Engine
+// Simplified Recommendation Engine
 function calculateEventScore(event) {
-    if (!AppState.userProfile) return 50; // Default score if no profile
+    // Simple scoring based on recency and price
+    let score = 50; // Base score
 
-    let score = 0;
-    let maxScore = 0;
-
-    // Personality matching (40 points max)
-    const personalityWeight = 40;
-    const matchingTraits = event.personalityTags.filter(tag =>
-        AppState.userProfile.personalityTraits.includes(tag)
-    ).length;
-    score += (matchingTraits / 4) * personalityWeight;
-    maxScore += personalityWeight;
-
-    // Vibe matching (30 points max)
-    const vibeWeight = 30;
-    const matchingVibes = event.vibes.filter(vibe =>
-        AppState.userProfile.vibes.includes(vibe)
-    ).length;
-    score += (matchingVibes / Math.min(event.vibes.length, 3)) * vibeWeight;
-    maxScore += vibeWeight;
-
-    // Budget matching (15 points max)
-    const budgetWeight = 15;
-    if (event.priceCategory === AppState.userProfile.budget) {
-        score += budgetWeight;
-    } else if (
-        (AppState.userProfile.budget === 'free' && event.priceCategory === 'budget') ||
-        (AppState.userProfile.budget === 'budget' && event.priceCategory === 'moderate') ||
-        (AppState.userProfile.budget === 'moderate' && event.priceCategory === 'budget') ||
-        (AppState.userProfile.budget === 'premium' && event.priceCategory === 'moderate')
-    ) {
-        score += budgetWeight * 0.5;
+    // Boost score for user-submitted events
+    if (event.userSubmitted) {
+        score += 10;
     }
-    maxScore += budgetWeight;
 
-    // Group size matching (10 points max)
-    const groupWeight = 10;
-    if (event.groupSizes.includes(AppState.userProfile.groupSize)) {
-        score += groupWeight;
+    // Boost recent events
+    const eventDate = new Date(event.date);
+    const now = new Date();
+    const daysUntilEvent = Math.floor((eventDate - now) / (1000 * 60 * 60 * 24));
+
+    if (daysUntilEvent >= 0 && daysUntilEvent <= 7) {
+        score += 20; // Events within a week
+    } else if (daysUntilEvent > 7 && daysUntilEvent <= 30) {
+        score += 10; // Events within a month
     }
-    maxScore += groupWeight;
 
-    // Time preference matching (5 points max)
-    const timeWeight = 5;
-    if (event.time === AppState.userProfile.timePreference) {
-        score += timeWeight;
+    // Slightly boost free events
+    if (event.priceCategory === 'free') {
+        score += 5;
     }
-    maxScore += timeWeight;
 
-    // Convert to percentage
-    return Math.round((score / maxScore) * 100);
+    // Cap at 100
+    return Math.min(100, score);
 }
 
 // Event Display Functions
@@ -532,12 +391,12 @@ function createEventCard(event) {
         <div class="event-card" data-event-id="${event.id}">
             ${event.locationImage ? `
             <div class="event-card-image" style="background-image: url('${event.locationImage}');">
-                ${AppState.userProfile ? `<span class="match-score">${event.matchScore}% Match</span>` : ''}
+                ${event.userSubmitted ? `<span class="match-score">Community Event</span>` : ''}
             </div>
             ` : `
             <div class="event-card-header">
                 <span class="event-icon">${event.image}</span>
-                ${AppState.userProfile ? `<span class="match-score">${event.matchScore}% Match</span>` : ''}
+                ${event.userSubmitted ? `<span class="match-score">Community Event</span>` : ''}
             </div>
             `}
             <div class="event-card-body">
@@ -596,7 +455,6 @@ function showEventDetails(eventId) {
     if (!event) return;
 
     AppState.currentEventId = eventId;
-    const matchScore = calculateEventScore(event);
     const isSaved = AppState.savedEvents.has(eventId);
     const hasReview = AppState.reviews.some(r => r.eventId === eventId);
 
@@ -606,7 +464,7 @@ function showEventDetails(eventId) {
             <span class="modal-icon">${event.image}</span>
             <h2 class="modal-title">${event.name}</h2>
             <p class="modal-subtitle">${event.location}</p>
-            ${AppState.userProfile ? `<div class="match-score" style="display: inline-block; margin-top: 1rem;">${matchScore}% Match</div>` : ''}
+            ${event.userSubmitted ? `<div class="match-score" style="display: inline-block; margin-top: 1rem;">Community Event</div>` : ''}
         </div>
 
         <div class="modal-section">
@@ -644,22 +502,6 @@ function showEventDetails(eventId) {
             <p>${event.description}</p>
         </div>
 
-        ${AppState.userProfile ? `
-        <div class="modal-section">
-            <h4>✨ Why This Matches You</h4>
-            <div class="personality-matches">
-                ${event.personalityTags.map(tag =>
-                    AppState.userProfile.personalityTraits.includes(tag)
-                    ? `<span class="personality-tag">${tag}</span>`
-                    : ''
-                ).join('')}
-            </div>
-            <p style="margin-top: 1rem; color: var(--text-secondary);">
-                ${getMatchExplanation(event, matchScore)}
-            </p>
-        </div>
-        ` : ''}
-
         <div class="modal-section">
             <h4>🏷️ Tags</h4>
             <div class="event-tags">
@@ -672,6 +514,7 @@ function showEventDetails(eventId) {
             <h4>ℹ️ Source</h4>
             <p style="color: var(--text-secondary); font-size: 0.875rem;">${event.source}</p>
             ${event.locationImageSource ? `<p style="color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.5rem;">📸 Image: ${event.locationImageSource}</p>` : ''}
+            ${event.contactEmail ? `<p style="color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.5rem;">📧 Contact: ${event.contactEmail}</p>` : ''}
         </div>
         ` : ''}
 
@@ -693,34 +536,6 @@ function showEventDetails(eventId) {
     document.getElementById('eventModal').classList.add('active');
 }
 
-function getMatchExplanation(event, score) {
-    if (!AppState.userProfile) return '';
-
-    const explanations = [];
-
-    // Personality match
-    const personalityMatches = event.personalityTags.filter(tag =>
-        AppState.userProfile.personalityTraits.includes(tag)
-    );
-    if (personalityMatches.length > 0) {
-        explanations.push(`This event aligns with your ${personalityMatches.join(', ')} traits`);
-    }
-
-    // Vibe match
-    const vibeMatches = event.vibes.filter(vibe =>
-        AppState.userProfile.vibes.includes(vibe)
-    );
-    if (vibeMatches.length > 0) {
-        explanations.push(`matches your preference for ${vibeMatches.slice(0, 2).join(' and ')} experiences`);
-    }
-
-    // Budget match
-    if (event.priceCategory === AppState.userProfile.budget) {
-        explanations.push(`fits your budget perfectly`);
-    }
-
-    return explanations.join(', and ') + '.';
-}
 
 // Review System
 function openReviewForm(eventId) {
@@ -945,7 +760,6 @@ function generateContextualRecommendations(reviewText, sentiment, rating) {
         // Suggest highly interactive events
         const interactiveEvents = AppState.events
             .filter(e => e.id !== AppState.currentEventId && e.interactivity === 'high')
-            .filter(e => AppState.userProfile ? calculateEventScore(e) > 60 : true)
             .sort((a, b) => calculateEventScore(b) - calculateEventScore(a))
             .slice(0, 2);
 
@@ -963,14 +777,13 @@ function generateContextualRecommendations(reviewText, sentiment, rating) {
     if (rating <= 2 && sentiment.concerns.length === 0) {
         const differentCategory = AppState.events
             .filter(e => e.id !== AppState.currentEventId && e.category !== currentEvent.category)
-            .filter(e => AppState.userProfile ? calculateEventScore(e) > 70 : true)
             .sort((a, b) => calculateEventScore(b) - calculateEventScore(a))
             .slice(0, 2);
 
         differentCategory.forEach(event => {
             recommendations.push({
                 event,
-                reason: `Sometimes a change of pace is exactly what you need! This ${event.category} event offers a completely different vibe that matches your personality perfectly. 🔄`,
+                reason: `Sometimes a change of pace is exactly what you need! This ${event.category} event offers a completely different vibe. 🔄`,
                 badges: ['fresh-perspective'],
                 emoji: '🌟'
             });
@@ -1041,7 +854,6 @@ function displayRecommendations(recommendations, sentiment) {
                             ${rec.badges.map(badge => `
                                 <span class="badge ${badge}">${badge.replace('-', ' ')}</span>
                             `).join('')}
-                            ${AppState.userProfile ? `<span class="badge">${calculateEventScore(rec.event)}% match</span>` : ''}
                         </div>
                     </div>
                 </div>
