@@ -251,6 +251,29 @@ All colors and design tokens are defined as CSS custom properties in `styles.css
 - Event organizer submissions
 - Rating aggregation and reviews from multiple users
 
+## Event Data Collection
+
+### Will's Pub Event Scraper
+
+A Python web scraper is included for automatically collecting event data from Will's Pub venues:
+
+- **Target Venues**: Will's Pub, Lil Indies, Dirty Laundry
+- **Extracted Data**: Event names, dates/times, artists, pricing, URLs, tags, descriptions
+- **Export Formats**: JSON and CSV
+
+**Quick Start:**
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the scraper
+python wills_pub_scraper.py
+```
+
+**Documentation**: See [SCRAPER_README.md](SCRAPER_README.md) for detailed usage instructions, troubleshooting, and API information.
+
+**Note**: The scraper may encounter 403 Forbidden errors due to anti-bot protections. See the scraper documentation for alternative approaches.
+
 ## License
 
 This project is open source and available for educational and personal use.
