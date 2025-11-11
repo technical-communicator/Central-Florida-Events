@@ -1,0 +1,41 @@
+[
+  {
+    "venue": "Will's Pub",
+    "event_name": "Rock Night Live",
+    "date": "2025-11-15",
+    "time": "20:00:00",
+    "date_display": "Friday, November 15, 2025 at 8:00 PM",
+    "datetime": "2025-11-15T20:00:00",
+    "artists": "The Example Band, Opening Act",
+    "price": "$15",
+    "event_url": "https://willspub.org/event/rock-night-live/",
+    "tags": ["Rock", "Local", "Live Music"],
+    "description": "Join us for an amazing night of live rock music featuring The Example Band with special guest Opening Act. Doors open at 7:30 PM."
+  },
+  {
+    "venue": "Lil Indies",
+    "event_name": "Indie Showcase",
+    "date": "2025-11-20",
+    "time": "21:00:00",
+    "date_display": "Wednesday, November 20, 2025 at 9:00 PM",
+    "datetime": "2025-11-20T21:00:00",
+    "artists": "Local Indie Artist, DJ Set",
+    "price": "$10",
+    "event_url": "https://willspub.org/event/indie-showcase/",
+    "tags": ["Indie", "Electronic", "DJ"],
+    "description": "A night of indie music and electronic beats. Come support local artists!"
+  },
+  {
+    "venue": "Dirty Laundry",
+    "event_name": "Underground Hip-Hop Night",
+    "date": "2025-11-22",
+    "time": "22:00:00",
+    "date_display": "Friday, November 22, 2025 at 10:00 PM",
+    "datetime": "2025-11-22T22:00:00",
+    "artists": "MC Flow, DJ Beats, Special Guests",
+    "price": "Free",
+    "event_url": "https://willspub.org/event/underground-hip-hop/",
+    "tags": ["Hip-Hop", "Rap", "Underground"],
+    "description": "Free entry to our weekly underground hip-hop showcase. Featuring MC Flow and DJ Beats with special guest performers."
+  }
+]
