@@ -791,6 +791,41 @@ body {
     font-size: 0.95rem;
 }
 
+/* Registration Form Styles */
+.registration-form input[type="text"],
+.registration-form input[type="email"],
+.registration-form input[type="url"],
+.registration-form input[type="number"],
+.registration-form input[type="date"],
+.registration-form select,
+.registration-form textarea {
+    width: 100%;
+    padding: 0.875rem;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: 'DM Sans', sans-serif;
+    transition: all var(--transition-base);
+    background: white;
+}
+
+.registration-form input[type="text"]:focus,
+.registration-form input[type="email"]:focus,
+.registration-form input[type="url"]:focus,
+.registration-form input[type="number"]:focus,
+.registration-form input[type="date"]:focus,
+.registration-form select:focus,
+.registration-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(149, 117, 205, 0.1);
+}
+
+.registration-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
 /* Onboarding Navigation */
 .onboarding-nav {
     display: flex;
