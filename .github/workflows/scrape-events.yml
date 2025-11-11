@@ -1,0 +1,146 @@
+name: Scrape Central Florida Events
+
+on:
+  schedule:
+    # Run daily at 6 AM UTC (2 AM EST, 1 AM EDT)
+    - cron: '0 6 * * *'
+  workflow_dispatch:  # Allow manual trigger
+  push:
+    branches:
+      - main
+    paths:
+      - 'multi_source_scraper.py'
+      - '.github/workflows/scrape-events.yml'
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write  # Required to commit and push
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for better commits
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run multi-source scraper
+        run: |
+          python multi_source_scraper.py
+        continue-on-error: true  # Don't fail if scraping partially fails
+
+      - name: Integrate scraped data
+        run: |
+          python integrate_scraped_data.py
+        continue-on-error: true  # Don't fail if integration partially fails
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git diff --quiet central_florida_events.json || echo "has_changes=true" >> $GITHUB_OUTPUT
+          if [ -f central_florida_events.json ]; then
+            EVENT_COUNT=$(python -c "import json; data=json.load(open('central_florida_events.json')); print(data.get('total_events', 0))")
+            echo "event_count=$EVENT_COUNT" >> $GITHUB_OUTPUT
+          else
+            echo "event_count=0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Display scraping statistics
+        if: always()
+        run: |
+          if [ -f central_florida_events.json ]; then
+            echo "=== Scraping Statistics ==="
+            python -c "
+import json
+from datetime import datetime
+
+with open('central_florida_events.json', 'r') as f:
+    data = json.load(f)
+
+print(f'Total Events Scraped: {data.get(\"total_events\", 0)}')
+print(f'Scraped At: {data.get(\"scraped_at\", \"unknown\")}')
+
+if data.get('events'):
+    venues = {}
+    for event in data['events']:
+        venue = event.get('venue', 'Unknown')
+        venues[venue] = venues.get(venue, 0) + 1
+
+    print('\nEvents by Venue:')
+    for venue, count in sorted(venues.items()):
+        print(f'  {venue}: {count}')
+            "
+          else
+            echo "No event data file found"
+          fi
+
+      - name: Commit and push if changes
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git add central_florida_events.json central_florida_events.csv scraped-events.js integrated_events.json
+
+          EVENT_COUNT="${{ steps.check_changes.outputs.event_count }}"
+          COMMIT_MESSAGE="Auto-update: Scraped $EVENT_COUNT Central Florida events"
+
+          git commit -m "$COMMIT_MESSAGE" -m "Automated scraping run at $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+          git push
+
+      - name: Upload event data as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: event-data-${{ github.run_number }}
+          path: |
+            central_florida_events.json
+            central_florida_events.csv
+            scraped-events.js
+            integrated_events.json
+          retention-days: 30
+
+      - name: Create issue on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = '🚨 Event Scraping Failed';
+            const body = `The automated event scraping workflow failed.
+
+            **Run Details:**
+            - Run ID: ${{ github.run_id }}
+            - Run Number: ${{ github.run_number }}
+            - Triggered by: ${{ github.event_name }}
+            - Time: ${new Date().toISOString()}
+
+            Please check the [workflow logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for more details.`;
+
+            // Check if issue already exists
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: ['scraping-failure'],
+            });
+
+            if (issues.data.length === 0) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: title,
+                body: body,
+                labels: ['scraping-failure', 'automated']
+              });
+            }
