@@ -320,7 +320,18 @@ function promptAdminLogin() {
 
 function displayAdminEvents() {
     const container = document.getElementById('adminEventsContainer');
+    const scrapeContainer = document.getElementById('manualScrapeContainer');
     const tab = AppState.currentAdminTab;
+
+    // Show/hide appropriate containers
+    if (tab === 'scrape') {
+        container.style.display = 'none';
+        scrapeContainer.style.display = 'block';
+        return;
+    } else {
+        container.style.display = 'block';
+        scrapeContainer.style.display = 'none';
+    }
 
     let events = AppState.userSubmittedEvents.filter(e => e.status === tab);
 
@@ -420,6 +431,456 @@ function deleteEvent(eventId) {
         displayAdminEvents();
         alert('Event deleted successfully!');
     }
+}
+
+// Manual Scraping Functions
+let scrapedEventsCache = [];
+
+function clearScrapeForm() {
+    document.getElementById('scrapeUrl').value = '';
+    document.getElementById('scrapeVenue').value = '';
+    document.getElementById('scrapeCategory').value = 'music';
+    document.getElementById('scrapeHtml').value = '';
+    document.getElementById('scrapedEventsPreview').innerHTML = '';
+    scrapedEventsCache = [];
+}
+
+function parseScrapedHtml() {
+    const url = document.getElementById('scrapeUrl').value.trim();
+    const venue = document.getElementById('scrapeVenue').value.trim();
+    const category = document.getElementById('scrapeCategory').value;
+    const html = document.getElementById('scrapeHtml').value.trim();
+
+    if (!venue) {
+        alert('Please enter a venue name');
+        return;
+    }
+
+    if (!html) {
+        alert('Please paste the HTML source code');
+        return;
+    }
+
+    try {
+        const events = extractEventsFromHtml(html, venue, category, url);
+
+        if (events.length === 0) {
+            alert('No events found in the provided HTML. Try a different page or check the HTML structure.');
+            return;
+        }
+
+        scrapedEventsCache = events;
+        displayScrapedEvents(events);
+        alert(`Successfully extracted ${events.length} event(s)!`);
+    } catch (error) {
+        console.error('Error parsing HTML:', error);
+        alert('Error parsing HTML: ' + error.message);
+    }
+}
+
+function extractEventsFromHtml(html, venue, category, sourceUrl) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const events = [];
+
+    // Try to extract JSON-LD structured data first (most reliable)
+    const jsonLdScripts = doc.querySelectorAll('script[type="application/ld+json"]');
+    jsonLdScripts.forEach(script => {
+        try {
+            const data = JSON.parse(script.textContent);
+            const eventArray = Array.isArray(data) ? data : [data];
+
+            eventArray.forEach(item => {
+                if (item['@type'] === 'Event' || (item['@type'] && item['@type'].includes('Event'))) {
+                    const event = createEventFromJsonLd(item, venue, category, sourceUrl);
+                    if (event) events.push(event);
+                }
+            });
+        } catch (e) {
+            console.warn('Failed to parse JSON-LD:', e);
+        }
+    });
+
+    // If no JSON-LD found, try common HTML patterns
+    if (events.length === 0) {
+        events.push(...extractEventsFromHtmlPatterns(doc, venue, category, sourceUrl));
+    }
+
+    return events;
+}
+
+function createEventFromJsonLd(jsonData, venue, category, sourceUrl) {
+    try {
+        const name = jsonData.name || 'Untitled Event';
+        const description = jsonData.description || '';
+
+        // Parse date and time
+        let date = '';
+        let time = '';
+        if (jsonData.startDate) {
+            const startDate = new Date(jsonData.startDate);
+            date = startDate.toISOString().split('T')[0]; // YYYY-MM-DD
+            time = startDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+        }
+
+        // Parse location
+        let location = '';
+        if (jsonData.location) {
+            if (typeof jsonData.location === 'string') {
+                location = jsonData.location;
+            } else if (jsonData.location.address) {
+                const addr = jsonData.location.address;
+                location = typeof addr === 'string' ? addr :
+                    `${addr.streetAddress || ''}, ${addr.addressLocality || ''}, ${addr.addressRegion || ''} ${addr.postalCode || ''}`.trim();
+            }
+        }
+
+        // Parse price
+        let price = 0;
+        let priceCategory = 'free';
+        if (jsonData.offers) {
+            const offer = Array.isArray(jsonData.offers) ? jsonData.offers[0] : jsonData.offers;
+            if (offer.price) {
+                price = parseFloat(offer.price) || 0;
+            }
+        }
+
+        if (price > 0 && price <= 20) priceCategory = 'budget';
+        else if (price > 20 && price <= 50) priceCategory = 'moderate';
+        else if (price > 50) priceCategory = 'premium';
+
+        // Get external link
+        const externalLink = jsonData.url || sourceUrl || '';
+
+        return {
+            id: Date.now() + Math.random(),
+            name: name,
+            venue: venue,
+            category: category,
+            description: description.substring(0, 500),
+            location: location || venue,
+            date: date || new Date().toISOString().split('T')[0],
+            time: time || 'TBD',
+            duration: '2-3 hours',
+            price: price,
+            priceCategory: priceCategory,
+            capacity: 'medium',
+            image: getCategoryEmoji(category),
+            personalityTags: inferPersonalityTags(category),
+            vibes: inferVibes(category, description),
+            groupSizes: ['couple', 'small', 'large'],
+            interactivity: 'medium',
+            tags: [category, venue.toLowerCase()],
+            externalLink: externalLink,
+            source: `Scraped from ${venue}`,
+            contactEmail: 'admin@searchcentralfl.com',
+            userSubmitted: true,
+            submittedAt: new Date().toISOString(),
+            status: 'pending'
+        };
+    } catch (error) {
+        console.error('Error creating event from JSON-LD:', error);
+        return null;
+    }
+}
+
+function extractEventsFromHtmlPatterns(doc, venue, category, sourceUrl) {
+    const events = [];
+
+    // Common event container selectors
+    const selectors = [
+        '.event', '.event-item', '.event-card',
+        '[class*="event"]', '[itemtype*="Event"]',
+        'article', '.tribe-events-list-event-row',
+        '.eventlist-event'
+    ];
+
+    let eventElements = [];
+    for (const selector of selectors) {
+        const elements = doc.querySelectorAll(selector);
+        if (elements.length > 0) {
+            eventElements = Array.from(elements);
+            break;
+        }
+    }
+
+    // If no event containers found, try to find individual components
+    if (eventElements.length === 0) {
+        // Look for headings that might be event titles
+        const headings = doc.querySelectorAll('h1, h2, h3, h4');
+        eventElements = Array.from(headings).slice(0, 10); // Limit to first 10
+    }
+
+    eventElements.forEach((element, index) => {
+        try {
+            const name = extractText(element, 'h1, h2, h3, h4, .event-title, [class*="title"]') || `Event ${index + 1}`;
+            const description = extractText(element, 'p, .description, [class*="description"]') || '';
+            const dateText = extractText(element, 'time, .date, [class*="date"]') || '';
+            const timeText = extractText(element, '.time, [class*="time"]') || '';
+            const priceText = extractText(element, '.price, [class*="price"]') || '';
+
+            // Try to parse date
+            let date = '';
+            if (dateText) {
+                const parsedDate = new Date(dateText);
+                if (!isNaN(parsedDate)) {
+                    date = parsedDate.toISOString().split('T')[0];
+                }
+            }
+            if (!date) {
+                date = new Date().toISOString().split('T')[0];
+            }
+
+            // Parse price
+            let price = 0;
+            const priceMatch = priceText.match(/\$?(\d+(?:\.\d{2})?)/);
+            if (priceMatch) {
+                price = parseFloat(priceMatch[1]);
+            }
+
+            let priceCategory = 'free';
+            if (price > 0 && price <= 20) priceCategory = 'budget';
+            else if (price > 20 && price <= 50) priceCategory = 'moderate';
+            else if (price > 50) priceCategory = 'premium';
+
+            // Try to find external link
+            const linkElement = element.querySelector('a[href]');
+            let externalLink = sourceUrl;
+            if (linkElement) {
+                const href = linkElement.getAttribute('href');
+                if (href.startsWith('http')) {
+                    externalLink = href;
+                } else if (sourceUrl && href) {
+                    try {
+                        externalLink = new URL(href, sourceUrl).href;
+                    } catch (e) {
+                        externalLink = sourceUrl;
+                    }
+                }
+            }
+
+            events.push({
+                id: Date.now() + Math.random() + index,
+                name: name.substring(0, 200),
+                venue: venue,
+                category: category,
+                description: description.substring(0, 500) || 'No description available',
+                location: venue,
+                date: date,
+                time: timeText || 'TBD',
+                duration: '2-3 hours',
+                price: price,
+                priceCategory: priceCategory,
+                capacity: 'medium',
+                image: getCategoryEmoji(category),
+                personalityTags: inferPersonalityTags(category),
+                vibes: inferVibes(category, description),
+                groupSizes: ['couple', 'small', 'large'],
+                interactivity: 'medium',
+                tags: [category, venue.toLowerCase()],
+                externalLink: externalLink,
+                source: `Scraped from ${venue}`,
+                contactEmail: 'admin@searchcentralfl.com',
+                userSubmitted: true,
+                submittedAt: new Date().toISOString(),
+                status: 'pending'
+            });
+        } catch (error) {
+            console.error('Error extracting event:', error);
+        }
+    });
+
+    return events;
+}
+
+function extractText(element, selector) {
+    const el = element.querySelector(selector) || element;
+    return el.textContent.trim();
+}
+
+function getCategoryEmoji(category) {
+    const emojiMap = {
+        music: '🎵',
+        food: '🍽️',
+        arts: '🎨',
+        sports: '⚽',
+        outdoor: '🌳',
+        education: '📚',
+        community: '🤝'
+    };
+    return emojiMap[category] || '📅';
+}
+
+function inferPersonalityTags(category) {
+    const tagMap = {
+        music: ['E', 'N', 'F', 'P'],
+        food: ['E', 'S', 'F', 'J'],
+        arts: ['I', 'N', 'F', 'P'],
+        sports: ['E', 'S', 'T', 'J'],
+        outdoor: ['E', 'S', 'F', 'P'],
+        education: ['I', 'N', 'T', 'J'],
+        community: ['E', 'S', 'F', 'J']
+    };
+    return tagMap[category] || ['E', 'N', 'F', 'P'];
+}
+
+function inferVibes(category, description) {
+    const vibeMap = {
+        music: ['energetic', 'social', 'creative'],
+        food: ['relaxed', 'social', 'indulgent'],
+        arts: ['creative', 'intellectual', 'inspiring'],
+        sports: ['energetic', 'competitive', 'active'],
+        outdoor: ['adventurous', 'peaceful', 'refreshing'],
+        education: ['intellectual', 'inspiring', 'focused'],
+        community: ['social', 'welcoming', 'meaningful']
+    };
+    return vibeMap[category] || ['social', 'fun'];
+}
+
+function displayScrapedEvents(events) {
+    const container = document.getElementById('scrapedEventsPreview');
+
+    if (events.length === 0) {
+        container.innerHTML = '<p>No events to display</p>';
+        return;
+    }
+
+    container.innerHTML = `
+        <div class="scraped-events-header">
+            <h3>Extracted Events (${events.length})</h3>
+            <div class="bulk-actions">
+                <button class="btn btn-primary" onclick="bulkApproveScrapedEvents()">✅ Approve All</button>
+                <button class="btn btn-secondary" onclick="clearScrapeForm()">Clear All</button>
+            </div>
+        </div>
+        <div class="scraped-events-grid">
+            ${events.map((event, index) => createScrapedEventCard(event, index)).join('')}
+        </div>
+    `;
+}
+
+function createScrapedEventCard(event, index) {
+    const priceDisplay = event.price === 0 ? 'FREE' : `$${event.price}`;
+
+    return `
+        <div class="scraped-event-card" id="scraped-event-${index}">
+            <div class="scraped-event-header">
+                <span class="event-icon">${event.image}</span>
+                <h4>${event.name}</h4>
+            </div>
+            <div class="scraped-event-body">
+                <div class="event-field">
+                    <label>Venue:</label>
+                    <input type="text" value="${event.venue}" onchange="updateScrapedEvent(${index}, 'venue', this.value)">
+                </div>
+                <div class="event-field">
+                    <label>Date:</label>
+                    <input type="date" value="${event.date}" onchange="updateScrapedEvent(${index}, 'date', this.value)">
+                </div>
+                <div class="event-field">
+                    <label>Time:</label>
+                    <input type="text" value="${event.time}" onchange="updateScrapedEvent(${index}, 'time', this.value)">
+                </div>
+                <div class="event-field">
+                    <label>Price ($):</label>
+                    <input type="number" value="${event.price}" step="0.01" onchange="updateScrapedEvent(${index}, 'price', parseFloat(this.value))">
+                </div>
+                <div class="event-field">
+                    <label>Category:</label>
+                    <select onchange="updateScrapedEvent(${index}, 'category', this.value)">
+                        <option value="music" ${event.category === 'music' ? 'selected' : ''}>Music</option>
+                        <option value="food" ${event.category === 'food' ? 'selected' : ''}>Food & Drink</option>
+                        <option value="arts" ${event.category === 'arts' ? 'selected' : ''}>Arts & Culture</option>
+                        <option value="sports" ${event.category === 'sports' ? 'selected' : ''}>Sports & Fitness</option>
+                        <option value="outdoor" ${event.category === 'outdoor' ? 'selected' : ''}>Outdoor & Nature</option>
+                        <option value="education" ${event.category === 'education' ? 'selected' : ''}>Education & Learning</option>
+                        <option value="community" ${event.category === 'community' ? 'selected' : ''}>Community & Social</option>
+                    </select>
+                </div>
+                <div class="event-field">
+                    <label>Description:</label>
+                    <textarea rows="3" onchange="updateScrapedEvent(${index}, 'description', this.value)">${event.description}</textarea>
+                </div>
+                <div class="event-field">
+                    <label>External Link:</label>
+                    <input type="url" value="${event.externalLink}" onchange="updateScrapedEvent(${index}, 'externalLink', this.value)">
+                </div>
+            </div>
+            <div class="scraped-event-actions">
+                <button class="btn btn-primary btn-sm" onclick="approveSingleScrapedEvent(${index})">✅ Approve</button>
+                <button class="btn btn-secondary btn-sm" onclick="removeScrapedEvent(${index})">❌ Remove</button>
+            </div>
+        </div>
+    `;
+}
+
+function updateScrapedEvent(index, field, value) {
+    if (scrapedEventsCache[index]) {
+        scrapedEventsCache[index][field] = value;
+
+        // Update price category if price changed
+        if (field === 'price') {
+            const price = parseFloat(value);
+            if (price === 0) scrapedEventsCache[index].priceCategory = 'free';
+            else if (price <= 20) scrapedEventsCache[index].priceCategory = 'budget';
+            else if (price <= 50) scrapedEventsCache[index].priceCategory = 'moderate';
+            else scrapedEventsCache[index].priceCategory = 'premium';
+        }
+
+        // Update emoji if category changed
+        if (field === 'category') {
+            scrapedEventsCache[index].image = getCategoryEmoji(value);
+            scrapedEventsCache[index].personalityTags = inferPersonalityTags(value);
+            scrapedEventsCache[index].vibes = inferVibes(value, scrapedEventsCache[index].description);
+        }
+    }
+}
+
+function removeScrapedEvent(index) {
+    scrapedEventsCache.splice(index, 1);
+    displayScrapedEvents(scrapedEventsCache);
+}
+
+function approveSingleScrapedEvent(index) {
+    const event = scrapedEventsCache[index];
+    if (!event) return;
+
+    // Generate a proper unique ID
+    event.id = Date.now() + Math.random();
+
+    // Add to user submitted events
+    AppState.userSubmittedEvents.push(event);
+    saveStateToLocalStorage();
+
+    // Remove from cache
+    scrapedEventsCache.splice(index, 1);
+    displayScrapedEvents(scrapedEventsCache);
+
+    alert(`Event "${event.name}" added to pending events!`);
+}
+
+function bulkApproveScrapedEvents() {
+    if (scrapedEventsCache.length === 0) {
+        alert('No events to approve');
+        return;
+    }
+
+    if (!confirm(`Approve all ${scrapedEventsCache.length} event(s)?`)) {
+        return;
+    }
+
+    scrapedEventsCache.forEach(event => {
+        event.id = Date.now() + Math.random();
+        AppState.userSubmittedEvents.push(event);
+    });
+
+    saveStateToLocalStorage();
+
+    const count = scrapedEventsCache.length;
+    scrapedEventsCache = [];
+    displayScrapedEvents(scrapedEventsCache);
+
+    alert(`Successfully added ${count} event(s) to pending events!`);
 }
 
 // Simplified Recommendation Engine
