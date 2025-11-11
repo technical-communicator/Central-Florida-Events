@@ -2097,3 +2097,229 @@ body {
         width: 100%;
     }
 }
+
+/* Manual Scrape Interface Styles */
+.manual-scrape-container {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.scrape-form {
+    background: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.scrape-form h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.help-text {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: var(--background-color);
+    color: var(--text-color);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+textarea.form-input {
+    resize: vertical;
+    min-height: 150px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+}
+
+.scrape-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.scraped-events-preview {
+    margin-top: 2rem;
+}
+
+.scraped-events-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.scraped-events-header h3 {
+    margin: 0;
+    color: var(--text-color);
+}
+
+.bulk-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.scraped-events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 1.5rem;
+}
+
+.scraped-event-card {
+    background: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.scraped-event-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.scraped-event-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.scraped-event-header .event-icon {
+    font-size: 2rem;
+}
+
+.scraped-event-header h4 {
+    margin: 0;
+    flex: 1;
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+.scraped-event-body {
+    margin-bottom: 1rem;
+}
+
+.event-field {
+    margin-bottom: 1rem;
+}
+
+.event-field label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+}
+
+.event-field input,
+.event-field select,
+.event-field textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--background-color);
+    color: var(--text-color);
+    font-size: 0.9rem;
+    font-family: inherit;
+}
+
+.event-field input:focus,
+.event-field select:focus,
+.event-field textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.event-field textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+.scraped-event-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .manual-scrape-container {
+        padding: 1rem;
+    }
+
+    .scrape-form {
+        padding: 1rem;
+    }
+
+    .scraped-events-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .scrape-actions,
+    .bulk-actions {
+        flex-direction: column;
+    }
+
+    .scrape-actions .btn,
+    .bulk-actions .btn {
+        width: 100%;
+    }
+
+    .scraped-events-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .bulk-actions {
+        width: 100%;
+    }
+
+    .scraped-event-actions {
+        flex-direction: column;
+    }
+
+    .scraped-event-actions .btn {
+        width: 100%;
+    }
+}

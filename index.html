@@ -327,8 +327,52 @@
                 <button class="admin-tab-btn active" data-admin-tab="pending">Pending Events</button>
                 <button class="admin-tab-btn" data-admin-tab="approved">Approved Events</button>
                 <button class="admin-tab-btn" data-admin-tab="rejected">Rejected Events</button>
+                <button class="admin-tab-btn" data-admin-tab="scrape">Manual Scrape</button>
             </div>
             <div id="adminEventsContainer" class="admin-events-container"></div>
+
+            <!-- Manual Scrape Interface -->
+            <div id="manualScrapeContainer" class="manual-scrape-container" style="display: none;">
+                <div class="scrape-form">
+                    <h3>Manual Event Scraping</h3>
+                    <p class="help-text">Enter venue URL and paste the HTML source, or use the Python helper script to fetch it automatically.</p>
+
+                    <div class="form-group">
+                        <label for="scrapeUrl">Venue URL:</label>
+                        <input type="url" id="scrapeUrl" placeholder="https://example.com/events" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="scrapeVenue">Venue Name:</label>
+                        <input type="text" id="scrapeVenue" placeholder="e.g., Will's Pub" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="scrapeCategory">Default Category:</label>
+                        <select id="scrapeCategory" class="form-input">
+                            <option value="music">Music</option>
+                            <option value="food">Food & Drink</option>
+                            <option value="arts">Arts & Culture</option>
+                            <option value="sports">Sports & Fitness</option>
+                            <option value="outdoor">Outdoor & Nature</option>
+                            <option value="education">Education & Learning</option>
+                            <option value="community">Community & Social</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="scrapeHtml">HTML Source (paste page HTML here):</label>
+                        <textarea id="scrapeHtml" rows="10" placeholder="Paste the HTML source code from the venue's events page..." class="form-input"></textarea>
+                    </div>
+
+                    <div class="scrape-actions">
+                        <button class="btn btn-primary" onclick="parseScrapedHtml()">🔍 Parse Events</button>
+                        <button class="btn btn-secondary" onclick="clearScrapeForm()">Clear Form</button>
+                    </div>
+                </div>
+
+                <div id="scrapedEventsPreview" class="scraped-events-preview"></div>
+            </div>
         </div>
 
         <!-- This Week's Events Section -->
