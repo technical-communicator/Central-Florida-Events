@@ -1,0 +1,125 @@
+{
+  "generated_at": "2025-11-11T14:43:42.577595",
+  "total_events": 3,
+  "events": [
+    {
+      "id": 1000,
+      "name": "Rock Night Live",
+      "category": "music",
+      "description": "Join us for an amazing night of live rock music featuring The Example Band with special guest Opening Act. Doors open at 7:30 PM.",
+      "location": "1042 N Mills Ave, Orlando, FL 32803",
+      "date": "2025-11-15",
+      "time": "8:00 PM",
+      "price": 15,
+      "priceCategory": "budget",
+      "capacity": "medium",
+      "image": "🎸",
+      "personalityTags": [
+        "E",
+        "S",
+        "F",
+        "P"
+      ],
+      "vibes": [
+        "social",
+        "energetic"
+      ],
+      "groupSizes": [
+        "solo",
+        "small"
+      ],
+      "interactivity": "low",
+      "venue": "indoor",
+      "duration": "2-3 hours",
+      "tags": [
+        "Rock",
+        "Local",
+        "Live Music"
+      ],
+      "externalLink": "https://willspub.org/event/rock-night-live/",
+      "source": "Will's Pub (Auto-scraped)",
+      "scrapedAt": "2025-11-11T14:43:35.203454",
+      "artists": "The Example Band, Opening Act"
+    },
+    {
+      "id": 1001,
+      "name": "Indie Showcase",
+      "category": "music",
+      "description": "A night of indie music and electronic beats. Come support local artists!",
+      "location": "1036 N Mills Ave, Orlando, FL 32803",
+      "date": "2025-11-20",
+      "time": "9:00 PM",
+      "price": 10,
+      "priceCategory": "budget",
+      "capacity": "medium",
+      "image": "🎤",
+      "personalityTags": [
+        "E",
+        "S",
+        "F",
+        "P"
+      ],
+      "vibes": [
+        "social",
+        "energetic",
+        "edgy"
+      ],
+      "groupSizes": [
+        "solo",
+        "small"
+      ],
+      "interactivity": "low",
+      "venue": "indoor",
+      "duration": "2-3 hours",
+      "tags": [
+        "Indie",
+        "Electronic",
+        "DJ"
+      ],
+      "externalLink": "https://willspub.org/event/indie-showcase/",
+      "source": "Lil Indies (Auto-scraped)",
+      "scrapedAt": "2025-11-11T14:43:35.203457",
+      "artists": "Local Indie Artist, DJ Set"
+    },
+    {
+      "id": 1002,
+      "name": "Underground Hip-Hop Night",
+      "category": "music",
+      "description": "Free entry to our weekly underground hip-hop showcase. Featuring MC Flow and DJ Beats with special guest performers.",
+      "location": "1028 N Mills Ave, Orlando, FL 32803",
+      "date": "2025-11-22",
+      "time": "10:00 PM",
+      "price": 0,
+      "priceCategory": "free",
+      "capacity": "medium",
+      "image": "🎧",
+      "personalityTags": [
+        "E",
+        "S",
+        "F",
+        "P"
+      ],
+      "vibes": [
+        "accessible",
+        "social",
+        "energetic"
+      ],
+      "groupSizes": [
+        "solo",
+        "small"
+      ],
+      "interactivity": "low",
+      "venue": "indoor",
+      "duration": "2-3 hours",
+      "tags": [
+        "Hip-Hop",
+        "Rap",
+        "Underground"
+      ],
+      "externalLink": "https://willspub.org/event/underground-hip-hop/",
+      "source": "Dirty Laundry (Auto-scraped)",
+      "scrapedAt": "2025-11-11T14:43:35.203459",
+      "artists": "MC Flow, DJ Beats, Special Guests"
+    }
+  ]
+}

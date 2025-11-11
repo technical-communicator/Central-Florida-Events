@@ -1,0 +1,81 @@
+{
+  "scraped_at": "2025-11-11T14:43:35.203436",
+  "total_events": 3,
+  "events": [
+    {
+      "name": "Rock Night Live",
+      "venue": "Will's Pub",
+      "category": "music",
+      "description": "Join us for an amazing night of live rock music featuring The Example Band with special guest Opening Act. Doors open at 7:30 PM.",
+      "location": "1042 N Mills Ave, Orlando, FL 32803",
+      "date": "2025-11-15",
+      "time": "20:00",
+      "datetime_display": "Friday, November 15, 2025 at 8:00 PM",
+      "price": "$15",
+      "price_numeric": 15.0,
+      "price_category": "budget",
+      "external_link": "https://willspub.org/event/rock-night-live/",
+      "source": "Will's Pub",
+      "source_url": "https://willspub.org/tm-venue/wills-pub/",
+      "scraped_at": "2025-11-11T14:43:35.203454",
+      "tags": [
+        "Rock",
+        "Local",
+        "Live Music"
+      ],
+      "artists": "The Example Band, Opening Act",
+      "capacity": "medium",
+      "venue_type": "indoor"
+    },
+    {
+      "name": "Indie Showcase",
+      "venue": "Lil Indies",
+      "category": "music",
+      "description": "A night of indie music and electronic beats. Come support local artists!",
+      "location": "1036 N Mills Ave, Orlando, FL 32803",
+      "date": "2025-11-20",
+      "time": "21:00",
+      "datetime_display": "Wednesday, November 20, 2025 at 9:00 PM",
+      "price": "$10",
+      "price_numeric": 10.0,
+      "price_category": "budget",
+      "external_link": "https://willspub.org/event/indie-showcase/",
+      "source": "Lil Indies",
+      "source_url": "https://willspub.org/tm-venue/lil-indies/",
+      "scraped_at": "2025-11-11T14:43:35.203457",
+      "tags": [
+        "Indie",
+        "Electronic",
+        "DJ"
+      ],
+      "artists": "Local Indie Artist, DJ Set",
+      "capacity": "medium",
+      "venue_type": "indoor"
+    },
+    {
+      "name": "Underground Hip-Hop Night",
+      "venue": "Dirty Laundry",
+      "category": "music",
+      "description": "Free entry to our weekly underground hip-hop showcase. Featuring MC Flow and DJ Beats with special guest performers.",
+      "location": "1028 N Mills Ave, Orlando, FL 32803",
+      "date": "2025-11-22",
+      "time": "22:00",
+      "datetime_display": "Friday, November 22, 2025 at 10:00 PM",
+      "price": "Free",
+      "price_numeric": 0.0,
+      "price_category": "free",
+      "external_link": "https://willspub.org/event/underground-hip-hop/",
+      "source": "Dirty Laundry",
+      "source_url": "https://willspub.org/tm-venue/dirty-laundry/",
+      "scraped_at": "2025-11-11T14:43:35.203459",
+      "tags": [
+        "Hip-Hop",
+        "Rap",
+        "Underground"
+      ],
+      "artists": "MC Flow, DJ Beats, Special Guests",
+      "capacity": "medium",
+      "venue_type": "indoor"
+    }
+  ]
+}
