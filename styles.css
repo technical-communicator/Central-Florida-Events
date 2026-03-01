@@ -6,46 +6,46 @@
 }
 
 :root {
-    /* Gen Z Inspired Color Palette */
-    --primary-color: #8b5cf6;
-    --primary-dark: #7c3aed;
-    --primary-light: #a78bfa;
-    --secondary-color: #ec4899;
-    --tertiary-color: #14b8a6;
-    --accent-yellow: #fbbf24;
-    --accent-coral: #fb7185;
-    --success-color: #10b981;
-    --warning-color: #f59e0b;
-    --danger-color: #ef4444;
-    --text-primary: #1e293b;
-    --text-secondary: #64748b;
-    --text-light: #94a3b8;
-    --bg-primary: #ffffff;
-    --bg-secondary: #faf5ff;
-    --bg-tertiary: #f1f5f9;
-    --bg-gradient-1: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
-    --bg-gradient-2: linear-gradient(135deg, #14b8a6 0%, #8b5cf6 100%);
-    --bg-gradient-3: linear-gradient(135deg, #fbbf24 0%, #fb7185 100%);
-    --border-color: #e2e8f0;
+    /* Vintage Inspired Color Palette */
+    --primary-color: #8b3a2a;
+    --primary-dark: #6b2d20;
+    --primary-light: #b5614e;
+    --secondary-color: #c4862c;
+    --tertiary-color: #4a6741;
+    --accent-yellow: #d4a843;
+    --accent-coral: #c67a5c;
+    --success-color: #4a7c59;
+    --warning-color: #c4862c;
+    --danger-color: #8b3a2a;
+    --text-primary: #2c1a0e;
+    --text-secondary: #5c4033;
+    --text-light: #8b6f5e;
+    --bg-primary: #faf4e8;
+    --bg-secondary: #f4ede3;
+    --bg-tertiary: #ede4d8;
+    --bg-gradient-1: linear-gradient(135deg, #8b3a2a 0%, #c4862c 100%);
+    --bg-gradient-2: linear-gradient(135deg, #4a6741 0%, #8b3a2a 100%);
+    --bg-gradient-3: linear-gradient(135deg, #d4a843 0%, #c67a5c 100%);
+    --border-color: #c8b5a0;
     --nav-height: 70px;
     --menu-width: 320px;
     --content-max-width: 1400px;
     --content-margin: 2rem;
-    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.12);
-    --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
-    --shadow-xl: 0 20px 35px -8px rgba(0, 0, 0, 0.2);
-    --shadow-glow: 0 0 30px rgba(139, 92, 246, 0.3);
+    --shadow-sm: 0 1px 3px 0 rgba(44, 26, 14, 0.1);
+    --shadow-md: 0 4px 12px -2px rgba(44, 26, 14, 0.12);
+    --shadow-lg: 0 10px 25px -5px rgba(44, 26, 14, 0.15);
+    --shadow-xl: 0 20px 35px -8px rgba(44, 26, 14, 0.2);
+    --shadow-glow: 0 0 30px rgba(139, 58, 42, 0.3);
     --transition-fast: 200ms cubic-bezier(0.4, 0, 0.2, 1);
     --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
     --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
-    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Lora', Georgia, 'Times New Roman', serif;
     color: var(--text-primary);
-    background: linear-gradient(180deg, #faf5ff 0%, #ffffff 100%);
-    line-height: 1.6;
+    background: linear-gradient(180deg, #faf4e8 0%, #f4ede3 100%);
+    line-height: 1.7;
     min-height: 100vh;
     padding-top: var(--nav-height);
     overflow-x: hidden;
@@ -58,9 +58,9 @@ body {
     left: 0;
     right: 0;
     height: var(--nav-height);
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(250, 244, 232, 0.97);
     backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 2px solid var(--border-color);
     z-index: 1000;
     box-shadow: var(--shadow-sm);
 }
@@ -82,23 +82,25 @@ body {
 }
 
 .logo-text {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.75rem;
-    font-weight: 800;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.6rem;
+    font-weight: 700;
     background: var(--bg-gradient-1);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    letter-spacing: 0.02em;
 }
 
 .logo-sparkle {
-    font-size: 1.5rem;
-    animation: sparkle 2s ease-in-out infinite;
+    font-size: 1.25rem;
+    color: var(--secondary-color);
+    animation: sparkle 3s ease-in-out infinite;
 }
 
 @keyframes sparkle {
-    0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
-    50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.15); opacity: 0.75; }
 }
 
 /* Hamburger Menu Button */
@@ -120,9 +122,9 @@ body {
 
 .hamburger-line {
     width: 28px;
-    height: 3px;
-    background: var(--bg-gradient-1);
-    border-radius: 3px;
+    height: 2.5px;
+    background: var(--primary-color);
+    border-radius: 1px;
     transition: all var(--transition-base);
 }
 
@@ -145,7 +147,7 @@ body {
     right: 0;
     width: var(--menu-width);
     height: 100vh;
-    background: linear-gradient(180deg, #ffffff 0%, #faf5ff 100%);
+    background: linear-gradient(180deg, #faf4e8 0%, #f4ede3 100%);
     box-shadow: var(--shadow-xl);
     z-index: 1100;
     transform: translateX(100%);
@@ -192,7 +194,7 @@ body {
 .profile-section {
     background: var(--bg-gradient-1);
     padding: 1.5rem;
-    border-radius: 20px;
+    border-radius: 4px;
     margin-bottom: 2rem;
     box-shadow: var(--shadow-md);
 }
@@ -210,16 +212,17 @@ body {
 .nav-btn {
     width: 100%;
     padding: 1rem 1.25rem;
-    background: white;
+    background: var(--bg-primary);
     border: 2px solid var(--border-color);
     color: var(--text-primary);
     font-size: 1rem;
     font-weight: 500;
+    font-family: 'Lora', Georgia, serif;
     display: flex;
     align-items: center;
     gap: 0.75rem;
     cursor: pointer;
-    border-radius: 16px;
+    border-radius: 4px;
     transition: all var(--transition-base);
 }
 
@@ -320,7 +323,7 @@ body {
     right: -20%;
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(196, 134, 44, 0.12) 0%, transparent 70%);
     border-radius: 50%;
     z-index: -1;
 }
@@ -331,15 +334,17 @@ body {
 
 .hero-badge {
     display: inline-block;
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
-    border: 2px solid var(--primary-light);
+    background: rgba(139, 58, 42, 0.08);
+    border: 1.5px solid var(--primary-light);
     color: var(--primary-dark);
     padding: 0.5rem 1.5rem;
-    border-radius: 50px;
-    font-size: 0.9rem;
-    font-weight: 600;
+    border-radius: 2px;
+    font-size: 0.875rem;
+    font-family: 'Special Elite', 'Courier New', monospace;
+    font-weight: 400;
+    letter-spacing: 0.05em;
     margin-bottom: 1.5rem;
-    animation: float 3s ease-in-out infinite;
+    animation: float 4s ease-in-out infinite;
 }
 
 @keyframes float {
@@ -348,10 +353,10 @@ body {
 }
 
 .hero-title {
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Playfair Display', Georgia, serif;
     font-size: 3.5rem;
     font-weight: 800;
-    line-height: 1.1;
+    line-height: 1.15;
     margin-bottom: 1.5rem;
     color: var(--text-primary);
 }
@@ -367,7 +372,7 @@ body {
 
 @keyframes gradientShift {
     0%, 100% { filter: hue-rotate(0deg); }
-    50% { filter: hue-rotate(20deg); }
+    50% { filter: hue-rotate(10deg); }
 }
 
 .hero-description {
@@ -389,7 +394,7 @@ body {
 }
 
 .stat-number {
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Playfair Display', Georgia, serif;
     font-size: 2rem;
     font-weight: 800;
     background: var(--bg-gradient-1);
@@ -419,13 +424,14 @@ body {
 
 .floating-card {
     position: absolute;
-    background: white;
-    padding: 1.5rem 2rem;
-    border-radius: 20px;
+    background: var(--bg-primary);
+    padding: 1.25rem 1.75rem;
+    border-radius: 4px;
     box-shadow: var(--shadow-lg);
     display: flex;
     align-items: center;
     gap: 1rem;
+    font-family: 'Lora', Georgia, serif;
     font-weight: 600;
     border: 2px solid var(--border-color);
     transition: all var(--transition-base);
@@ -448,7 +454,7 @@ body {
 .card-1 {
     top: 10%;
     left: 10%;
-    background: linear-gradient(135deg, #fff 0%, #fef3f8 100%);
+    background: linear-gradient(135deg, #faf4e8 0%, #f5e9d5 100%);
     border-color: var(--secondary-color);
     animation: floatCard1 4s ease-in-out infinite;
 }
@@ -456,7 +462,7 @@ body {
 .card-2 {
     top: 40%;
     right: 5%;
-    background: linear-gradient(135deg, #fff 0%, #f3f4ff 100%);
+    background: linear-gradient(135deg, #faf4e8 0%, #f5e5e0 100%);
     border-color: var(--primary-color);
     animation: floatCard2 5s ease-in-out infinite;
 }
@@ -464,7 +470,7 @@ body {
 .card-3 {
     bottom: 30%;
     left: 5%;
-    background: linear-gradient(135deg, #fff 0%, #fff7ed 100%);
+    background: linear-gradient(135deg, #faf4e8 0%, #f5eddc 100%);
     border-color: var(--accent-yellow);
     animation: floatCard3 4.5s ease-in-out infinite;
 }
@@ -472,7 +478,7 @@ body {
 .card-4 {
     bottom: 10%;
     right: 15%;
-    background: linear-gradient(135deg, #fff 0%, #f0fdfa 100%);
+    background: linear-gradient(135deg, #faf4e8 0%, #eaf0e7 100%);
     border-color: var(--tertiary-color);
     animation: floatCard4 5.5s ease-in-out infinite;
 }
@@ -510,11 +516,11 @@ body {
     background: var(--bg-gradient-1);
     color: white;
     border: none;
-    border-radius: 20px;
+    border-radius: 3px;
     box-shadow: var(--shadow-lg);
     cursor: pointer;
     transition: all var(--transition-base);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Lora', Georgia, serif;
     z-index: 10;
 }
 
@@ -588,8 +594,9 @@ body {
 .onboarding-container {
     max-width: 900px;
     margin: 0 auto;
-    background: white;
-    border-radius: 1rem;
+    background: var(--bg-primary);
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
     padding: 1.5rem 2rem;
     box-shadow: var(--shadow-lg);
 }
@@ -716,7 +723,7 @@ body {
     padding: 1.25rem 1rem;
     background: var(--bg-secondary);
     border: 2px solid var(--border-color);
-    border-radius: 0.75rem;
+    border-radius: 3px;
     transition: all var(--transition-base);
     height: 100%;
     display: flex;
@@ -802,11 +809,11 @@ body {
     width: 100%;
     padding: 0.875rem;
     border: 2px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 3px;
     font-size: 1rem;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Lora', Georgia, serif;
     transition: all var(--transition-base);
-    background: white;
+    background: var(--bg-primary);
 }
 
 .registration-form input[type="text"]:focus,
@@ -835,16 +842,17 @@ body {
     border-top: 1px solid var(--border-color);
 }
 
-/* Buttons - Gen Z Style */
+/* Buttons - Vintage Style */
 .btn {
     padding: 0.875rem 2rem;
     border: none;
-    border-radius: 16px;
+    border-radius: 3px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     transition: all var(--transition-base);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Lora', Georgia, serif;
+    letter-spacing: 0.03em;
 }
 
 .btn-primary {
@@ -867,7 +875,7 @@ body {
 }
 
 .btn-secondary {
-    background: white;
+    background: var(--bg-primary);
     color: var(--text-primary);
     border: 2px solid var(--border-color);
 }
@@ -886,6 +894,7 @@ body {
 }
 
 .content-header h2 {
+    font-family: 'Playfair Display', Georgia, serif;
     font-size: 2rem;
     margin-bottom: 1.5rem;
     color: var(--text-primary);
@@ -909,10 +918,11 @@ body {
     padding: 0.875rem 1.25rem;
     padding-right: 3rem;
     border: 2px solid var(--border-color);
-    border-radius: 16px;
+    border-radius: 3px;
     font-size: 1rem;
+    font-family: 'Lora', Georgia, serif;
     transition: all var(--transition-base);
-    background: white;
+    background: var(--bg-primary);
 }
 
 .search-box input:focus {
@@ -933,9 +943,10 @@ body {
 .filter-select {
     padding: 0.875rem 1.25rem;
     border: 2px solid var(--border-color);
-    border-radius: 16px;
+    border-radius: 3px;
     font-size: 1rem;
-    background: white;
+    font-family: 'Lora', Georgia, serif;
+    background: var(--bg-primary);
     cursor: pointer;
     transition: all var(--transition-base);
     font-weight: 500;
@@ -960,10 +971,10 @@ body {
     gap: 1.5rem;
 }
 
-/* Event Card - Gen Z Style */
+/* Event Card - Vintage Style */
 .event-card {
-    background: white;
-    border-radius: 24px;
+    background: var(--bg-primary);
+    border-radius: 4px;
     overflow: hidden;
     box-shadow: var(--shadow-md);
     transition: all var(--transition-base);
@@ -1085,9 +1096,10 @@ body {
     background: var(--bg-tertiary);
     color: var(--text-secondary);
     padding: 0.25rem 0.75rem;
-    border-radius: 2rem;
+    border-radius: 2px;
     font-size: 0.75rem;
     font-weight: 500;
+    border: 1px solid var(--border-color);
 }
 
 .event-card-footer {
@@ -1167,8 +1179,9 @@ body {
 }
 
 .modal-content {
-    background: white;
-    border-radius: 1rem;
+    background: var(--bg-primary);
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
     max-width: 800px;
     width: 100%;
     max-height: 90vh;
@@ -1281,7 +1294,7 @@ body {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
     color: white;
     padding: 0.5rem 1rem;
-    border-radius: 2rem;
+    border-radius: 2px;
     font-weight: 600;
 }
 
@@ -1372,7 +1385,7 @@ body {
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    border-radius: 2rem;
+    border-radius: 2px;
     font-weight: 600;
     margin-top: 0.5rem;
 }
@@ -1830,9 +1843,110 @@ body {
     line-height: 1;
 }
 
+/* Mail Club CTA */
+.mail-club-cta {
+    margin: 2rem 0 2.5rem;
+    background: linear-gradient(135deg, #2c1a0e 0%, #4a2010 100%);
+    border: 2px solid var(--secondary-color);
+    border-radius: 4px;
+    padding: 2rem 2.5rem;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.mail-club-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='20' cy='20' r='1'/%3E%3C/g%3E%3C/svg%3E") repeat;
+    pointer-events: none;
+}
+
+.mail-club-inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.mail-club-stamp {
+    font-size: 3.5rem;
+    color: var(--secondary-color);
+    flex-shrink: 0;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+}
+
+.mail-club-text {
+    flex: 1;
+}
+
+.mail-club-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #faf4e8;
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.02em;
+}
+
+.mail-club-desc {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 0.95rem;
+    color: rgba(250, 244, 232, 0.8);
+    line-height: 1.65;
+    max-width: 520px;
+}
+
+.mail-club-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 1.75rem;
+    background: var(--secondary-color);
+    color: #2c1a0e;
+    text-decoration: none;
+    font-family: 'Lora', Georgia, serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 3px;
+    border: 2px solid transparent;
+    transition: all var(--transition-base);
+    white-space: nowrap;
+    letter-spacing: 0.03em;
+    flex-shrink: 0;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.3);
+}
+
+.mail-club-btn:hover {
+    background: #d4a843;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 rgba(0,0,0,0.3);
+}
+
+.mail-club-btn .btn-arrow {
+    font-size: 1.1rem;
+    transition: transform var(--transition-fast);
+}
+
+.mail-club-btn:hover .btn-arrow {
+    transform: translateX(3px);
+}
+
+@media (max-width: 768px) {
+    .mail-club-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+    .mail-club-desc {
+        max-width: 100%;
+    }
+}
+
 /* Footer Styles */
 .site-footer {
-    background: linear-gradient(180deg, #ffffff 0%, #faf5ff 100%);
+    background: linear-gradient(180deg, #f4ede3 0%, #ede4d8 100%);
     border-top: 2px solid var(--border-color);
     margin-top: 4rem;
     padding: 3rem 0 2rem;
@@ -1849,9 +1963,9 @@ body {
 }
 
 .footer-section h4 {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 800;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.4rem;
+    font-weight: 700;
     background: var(--bg-gradient-1);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
