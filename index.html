@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Lora:wght@400;500;600&family=Special+Elite&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Top Navigation Bar -->
@@ -219,14 +219,13 @@
             <!-- Hero Section -->
             <section class="hero-section">
                 <div class="hero-content">
-                    <div class="hero-badge">&#9758; Discover Central Florida &#9758;</div>
+                    <div class="hero-badge">Central Florida Events ✦</div>
                     <h1 class="hero-title">
-                        Find Events That<br>
-                        <span class="gradient-text">Stir the Soul</span>
+                        Find Your<br>
+                        <span class="gradient-text">Next Thing</span>
                     </h1>
                     <p class="hero-description">
-                        Uncover the finest local happenings across Central Florida — from intimate jazz evenings
-                        to grand community festivals. Handpicked with care, served fresh.
+                        Local events, art, music, and community — all in one place. No algorithm, no noise. Just the good stuff happening near you.
                     </p>
                     <div class="hero-stats">
                         <div class="stat-item">
@@ -263,27 +262,58 @@
                         <span class="card-text">Active & Outdoors</span>
                     </div>
                 </div>
-                <button class="hero-quiz-cta" id="heroAddEventCta">
-                    <span class="cta-icon">➕</span>
-                    <div class="cta-content">
-                        <div class="cta-title">Host an Event</div>
-                        <div class="cta-subtitle">Share your event with the community</div>
-                    </div>
-                    <span class="cta-arrow">→</span>
-                </button>
             </section>
 
-            <!-- Mail Club CTA -->
-            <section class="mail-club-cta">
-                <div class="mail-club-inner">
-                    <div class="mail-club-stamp">✉</div>
-                    <div class="mail-club-text">
-                        <h3 class="mail-club-title">Join the Mail Club</h3>
-                        <p class="mail-club-desc">Receive a curated dispatch of Central Florida's finest events — delivered straight to your inbox. Support local discovery and become a patron today.</p>
+            <!-- Mail Club Section -->
+            <section class="mail-club-section">
+                <div class="mail-club-top">
+                    <div class="mail-club-label-row">
+                        <span class="mail-club-eyebrow">Monthly Membership</span>
                     </div>
-                    <a href="https://www.patreon.com/cw/SearchCentralFlorida" target="_blank" rel="noopener noreferrer" class="mail-club-btn">
-                        Sign Up on Patreon <span class="btn-arrow">&#8594;</span>
+                    <h2 class="mail-club-heading">The Mail Club</h2>
+                    <p class="mail-club-subtext">Support local art and culture in Central Florida. Become a patron and get real, physical things in your mailbox every month.</p>
+                </div>
+
+                <div class="mail-club-perks">
+                    <div class="perk-card">
+                        <div class="perk-icon-wrap">🖼️</div>
+                        <div class="perk-body">
+                            <h3 class="perk-title">4×6 Art Print</h3>
+                            <p class="perk-desc">An original print from a Central Florida artist — mailed directly to you. Something worth framing, not just scrolling past.</p>
+                        </div>
+                    </div>
+                    <div class="perk-card">
+                        <div class="perk-icon-wrap">🎨</div>
+                        <div class="perk-body">
+                            <h3 class="perk-title">Vinyl Stickers</h3>
+                            <p class="perk-desc">Limited-run sticker packs celebrating Central Florida culture, scenes, and local spots you actually know and love.</p>
+                        </div>
+                    </div>
+                    <div class="perk-card">
+                        <div class="perk-icon-wrap">📬</div>
+                        <div class="perk-body">
+                            <h3 class="perk-title">The Newsletter</h3>
+                            <p class="perk-desc">A curated read on Central Florida's art scene, local creators doing the work, and how you can show up and support them.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mail-club-cta-row">
+                    <a href="https://www.patreon.com/cw/SearchCentralFlorida" target="_blank" rel="noopener noreferrer" class="mail-club-join-btn">
+                        Join on Patreon →
                     </a>
+                    <span class="mail-club-note">Cancel anytime &middot; Support local</span>
+                </div>
+            </section>
+
+            <!-- Host an Event -->
+            <section class="host-event-section">
+                <div class="host-event-inner">
+                    <div class="host-event-text">
+                        <h3 class="host-event-title">Got an event to share?</h3>
+                        <p class="host-event-desc">Add it to the feed and put it in front of people who actually want to go.</p>
+                    </div>
+                    <button class="btn btn-outline" id="heroAddEventCta">List Your Event →</button>
                 </div>
             </section>
 
